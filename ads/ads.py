@@ -159,7 +159,7 @@ def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url
           'adGroupId': AgId,
           'ad': multi_asset_responsive_display_ad,
           # Optional.
-          'status': 'ENABLED'
+          'status': 'PAUSED'
       }
 
       # Add ad.
@@ -546,10 +546,10 @@ def BuildCampaignOperations(batch_job_helper,
           'xsi_type': 'CampaignOperation',
           'operand': {
               'name': telephone,
-              # Recommendation: Set the campaign to ENABLED when creating it to
+              # Recommendation: Set the campaign to PAUSED when creating it to
               # stop the ads from immediately serving. Set to ENABLED once
               # you've added targeting and the ads are ready to serve.
-              'status': 'ENABLED',
+              'status': 'PAUSED',
               # This is a temporary Id used by the BatchJobService to identify
               # the Campaigns for operations that require a campaignId.
               'id': batch_job_helper.GetId(),
