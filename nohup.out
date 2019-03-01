@@ -1,0 +1,14 @@
+ * Serving Flask app "init" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:5009/ (Press CTRL+C to quit)
+127.0.0.1 - - [01/Mar/2019 13:29:11] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [01/Mar/2019 13:29:12] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [01/Mar/2019 13:29:15] "GET /null HTTP/1.1" 404 -
+Error summary: {'faultMessage': '[SelectorError.INVALID_PREDICATE_VALUE @ serviceSelector]', 'requestId': '00058307915af8470a374c91d608f028', 'serviceName': 'AdGroupService', 'methodName': 'get', 'operations': '1', 'responseTime': '78'}
+127.0.0.1 - - [01/Mar/2019 13:30:10] "GET /uploads/image.png HTTP/1.1" 200 -
+127.0.0.1 - - [01/Mar/2019 13:30:50] "POST /upload HTTP/1.1" 200 -
+127.0.0.1 - - [01/Mar/2019 13:31:10] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [01/Mar/2019 13:31:14] "GET /null HTTP/1.1" 404 -

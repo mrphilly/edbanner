@@ -67,7 +67,7 @@ def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url
 
   # Generate operations to upload.
   AgId = getCampaign(client, telephone)
-  if AgId == "erreur":
+  if AgId =="erreur":
 
     budget_operations = BuildBudgetOperations(batch_job_helper)
     campaign_operations = BuildCampaignOperations(
@@ -499,7 +499,7 @@ def getCampaign(client, telephone):
     try:
       page = ad_group_service.get(selector)
     except GoogleAdsServerFault:
-      response = "erreur"
+        response = "erreur"
 
     # Display results.
     if 'entries' in page:
