@@ -55,126 +55,128 @@ def UploadImageAsset(client, url):
 
 def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url, description, prix, telephone):
   # Initialize BatchJobHelper.
-  batch_job_helper = client.GetBatchJobHelper(version='v201806')
 
-  # Create a BatchJob.
-  batch_job = AddBatchJob(client)
-  # Retrieve the URL used to upload the BatchJob operations.
-  upload_url = batch_job['uploadUrl']['url']
-  batch_job_id = batch_job['id']
-  print ('Created BatchJob with ID "%d", status "%s", and upload URL "%s"' % (
-      batch_job['id'], batch_job['status'], upload_url))
+  if getCampaign(client, telephone) != "SelectorError.INVALID_PREDICATE_VALUE @ serviceSelector":
+     
+         
+         print("start")
+         print("AgId"+ AgId)
 
-  # Generate operations to upload.
-  AgId = getCampaign(client, telephone)
-  if AgId =="erreur":
-
-    budget_operations = BuildBudgetOperations(batch_job_helper)
-    campaign_operations = BuildCampaignOperations(
-        batch_job_helper, budget_operations, telephone, number_of_campaigns)
-    campaign_criterion_operations = BuildCampaignCriterionOperations(
-        campaign_operations)
-    adgroup_operations = BuildAdGroupOperations(
-        batch_job_helper, campaign_operations, telephone, number_of_adgroups)
-    adgroup_criterion_operations = BuildAdGroupCriterionOperations(
-        adgroup_operations, number_of_keywords)
-    adgroup_ad_operations = BuildAdGroupAdOperations(adgroup_operations, client, url, description, prix, telephone)
-     # Upload operations.
-    batch_job_helper.UploadOperations(
-        upload_url, budget_operations, campaign_operations,
-        campaign_criterion_operations, adgroup_operations,
-        adgroup_criterion_operations, adgroup_ad_operations)
-
-    # Download and display results.
-    download_url = GetBatchJobDownloadUrlWhenReady(client, batch_job_id)
-    response = urlopen(download_url).read()
-    PrintResponse(batch_job_helper, response)
-
-  else:
-      ad_group_ad_service = client.GetService('AdGroupAdService', version='v201809')
+         ad_group_ad_service = client.GetService('AdGroupAdService', version='v201806')
 
       # Create the ad.
-      multi_asset_responsive_display_ad = {
+         multi_asset_responsive_display_ad = {
           'xsi_type': 'MultiAssetResponsiveDisplayAd',
           'headlines': [{
           'asset': {
               'xsi_type': 'TextAsset',
               'assetText': description
           }
-      }],
-      'descriptions': [{
+         }],
+        'descriptions': [{
           'asset': {
               'xsi_type': 'TextAsset',
               'assetText': 'Prix: '+prix+' CFA  Contact: '+telephone
           }
 
-      }],
-      'businessName': "Le comparateur",
-      'longHeadline': {
+         }],
+         'businessName': "Le comparateur",
+         'longHeadline': {
           'asset': {
               'xsi_type': 'TextAsset',
               'assetText': 'Comparateur de prix.',
           }
-      },
+        },
       # This ad format does not allow the creation of an image asset by setting
       # the asset.imageData field. An image asset must first be created using
       # the AssetService, and asset.assetId must be populated when creating
       # the ad.
-      'marketingImages': [{
+         'marketingImages': [{
           'asset': {
               'xsi_type': 'ImageAsset',
               'assetId': UploadImageAsset(client, url)
           }
-      }],
-      'squareMarketingImages': [{
+         }],
+         'squareMarketingImages': [{
           'asset': {
               'xsi_type': 'ImageAsset',
               'assetId': UploadImageAsset(client, 'http://137.74.199.121/static/ads/3.jpg')
           }
-      }],
+         }],
       # Optional values
-      'finalUrls': ['https://sn.comparez.co'],
-      'callToActionText': 'Shop Now',
+        'finalUrls': ['https://sn.comparez.co'],
+        'callToActionText': 'Shop Now',
       # Set color settings using hexadecimal values. Set allowFlexibleColor to
       # false if you want your ads to render by always using your colors
       # strictly.
-      'mainColor': '#0000ff',
-      'accentColor': '#ffff00',
-      'allowFlexibleColor': False,
-      'formatSetting': 'NON_NATIVE',
+        'mainColor': '#0000ff',
+        'accentColor': '#ffff00',
+        'allowFlexibleColor': False,
+        'formatSetting': 'NON_NATIVE',
       # Set dynamic display ad settings, composed of landscape logo image,
       # promotion text, and price prefix.
-      'dynamicSettingsPricePrefix': 'as low as',
-      'dynamicSettingsPromoText': 'Livraison gratuite!',
-      'logoImages': [{
+        'dynamicSettingsPricePrefix': 'as low as',
+        'dynamicSettingsPromoText': 'Livraison gratuite!',
+        'logoImages': [{
           'asset': {
               'xsi_type': 'ImageAsset',
               'assetId': UploadImageAsset(client, 'http://137.74.199.121/static/ads/2.jpg')
           }
-      }]
-      }
+        }]
+    }
 
       # Create ad group ad.
-      ad_group_ad = {
+         ad_group_ad = {
           'adGroupId': AgId,
           'ad': multi_asset_responsive_display_ad,
           # Optional.
           'status': 'PAUSED'
-      }
+         }
 
       # Add ad.
-      ads = ad_group_ad_service.mutate([
+         ads = ad_group_ad_service.mutate([
           {'operator': 'ADD', 'operand': ad_group_ad}
-      ])
+        ])
       # Display results.
-      if 'value' in ads:
-        for ad in ads['value']:
-          print ('Added new responsive display ad ad with ID "%d" '
+         if 'value' in ads:
+            for ad in ads['value']:
+             print ('Added new responsive display ad ad with ID "%d" '
                 'and long headline "%s".'
                 % (ad['ad']['id'], ad['ad']['longHeadline']['asset']['assetText']))
-      else:
-        print ('No ads were added.')
+         else:
+             print ('No ads were added.')
+  else:
+      batch_job_helper = client.GetBatchJobHelper(version='v201806')
+  # Create a BatchJob.
+      batch_job = AddBatchJob(client)
+  # Retrieve the URL used to upload the BatchJob operations.
+      upload_url = batch_job['uploadUrl']['url']
+      batch_job_id = batch_job['id']
+      print ('Created BatchJob with ID "%d", status "%s", and upload URL "%s"' % (
+         batch_job['id'], batch_job['status'], upload_url))
 
+      budget_operations = BuildBudgetOperations(batch_job_helper)
+      campaign_operations = BuildCampaignOperations(
+        batch_job_helper, budget_operations, telephone, number_of_campaigns)
+      campaign_criterion_operations = BuildCampaignCriterionOperations(
+        campaign_operations)
+      adgroup_operations = BuildAdGroupOperations(
+        batch_job_helper, campaign_operations, telephone, number_of_adgroups)
+      adgroup_criterion_operations = BuildAdGroupCriterionOperations(
+        adgroup_operations, number_of_keywords)
+      adgroup_ad_operations = BuildAdGroupAdOperations(adgroup_operations, client, url, description, prix, telephone)
+     # Upload operations.
+      batch_job_helper.UploadOperations(
+        upload_url, budget_operations, campaign_operations,
+        campaign_criterion_operations, adgroup_operations,
+        adgroup_criterion_operations, adgroup_ad_operations)
+
+    # Download and display results.
+      download_url = GetBatchJobDownloadUrlWhenReady(client, batch_job_id)
+      response = urlopen(download_url).read()
+      PrintResponse(batch_job_helper, response)
+
+    
 
 
 
@@ -448,8 +450,7 @@ def BuildCampaignCriterionOperations(campaign_operations):
 
 
 def getCampaign(client, telephone):
-     # Initialize appropriate service.
-   # Initialize appropriate service.
+    # Initialize appropriate service.
   response = ""
   campaign_service = client.GetService('CampaignService', version='v201806')
   ad_group_service = client.GetService('AdGroupService', version='v201806')
@@ -462,21 +463,26 @@ def getCampaign(client, telephone):
            .OrderBy('Name')
            .Limit(0, PAGE_SIZE)
            .Build())
-
-  for page in query.Pager(campaign_service):
+  try:
+    Page = query.Pager(campaign_service)
+  except GoogleAdsServerFault as e:
+    print(e.faultMessage)
+  for page in Page:
     try:
       # Display results.
       if 'entries' in page:
         for campaign in page['entries']:
-
-          campagne_id = campaign['id']
-          print ('Campaign with id "%s", name "%s", and status "%s" was '
-                'found.' % (campaign['id'], campaign['name'],
-                            campaign['status']))
+          try:
+            campagne_id = campaign['id']
+          except:
+            break
+          #print ('Campaign with id "%s", name "%s", and status "%s" was '
+           #     'found.' % (campaign['id'], campaign['name'],
+             #               campaign['status']))
       else:
         print ('No campaigns were found.')
-    except GoogleAdsServerFault:
-      print('erreur')
+    except GoogleAdsServerFault as e:
+      break
 
    # Construct selector and get all ad groups.
   offset = 0
@@ -498,18 +504,24 @@ def getCampaign(client, telephone):
   while more_pages:
     try:
       page = ad_group_service.get(selector)
-    except GoogleAdsServerFault:
-        response = "erreur"
+    except GoogleAdsServerFault as e:
+      response = "SelectorError.INVALID_PREDICATE_VALUE @ serviceSelector"
 
     # Display results.
-    if 'entries' in page:
-      for ad_group in page['entries']:
-        response = ad_group['id']
-        print ('Ad group with name "%s", id "%s" and status "%s" was '
-               'found.' % (ad_group['name'], ad_group['id'],
-                           ad_group['status']))
-    else:
-      print ('No ad groups were found.')
+    try:
+      if 'entries' in page:
+        for ad_group in page['entries']:
+          try:
+            response = ad_group['id']
+          except:
+            continue
+          #print ('Ad group with name "%s", id "%s" and status "%s" was '
+           #      'found.' % (ad_group['name'], ad_group['id'],
+            #                 ad_group['status']))
+      else:
+        break
+    except GoogleAdsServerFault as e:
+      print(e)
     offset += PAGE_SIZE
     selector['paging']['startIndex'] = str(offset)
     more_pages = offset < int(page['totalNumEntries'])
