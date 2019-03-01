@@ -24,6 +24,10 @@ body {
     margin-top: -85px;
 }
 
+.infos {
+    margin-left: 100px
+}
+
 .heading {
     text-align: center;
     color: #fff;
@@ -211,10 +215,26 @@ body {
 #down {
     border-radius: 5px;
     margin-top: 10px;
-    margin-left: 0px;
+    margin-left: 90px;
     height: auto;
     width: 130px;
     display: flex;
+}
+
+.modal-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 400px;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: .3rem;
+    outline: 0;
+    height: 620px;
 }
 
 #H5 {
