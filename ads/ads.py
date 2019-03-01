@@ -5,9 +5,12 @@ import uuid
 import requests
 from googleads import adwords
 from requests_html import HTMLSession
+from googleads.errors import GoogleAdsServerFault
 
 MAX_POLL_ATTEMPTS = 5
 PENDING_STATUSES = ('ACTIVE', 'AWAITING_FILE', 'CANCELING')
+PAGE_SIZE = 100
+
 
 def UploadImageAsset(client, url):
   """Uploads the image from the specified url.
@@ -63,27 +66,117 @@ def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url
       batch_job['id'], batch_job['status'], upload_url))
 
   # Generate operations to upload.
-  budget_operations = BuildBudgetOperations(batch_job_helper)
-  campaign_operations = BuildCampaignOperations(
-      batch_job_helper, budget_operations, number_of_campaigns)
-  campaign_criterion_operations = BuildCampaignCriterionOperations(
-      campaign_operations)
-  adgroup_operations = BuildAdGroupOperations(
-      batch_job_helper, campaign_operations, number_of_adgroups)
-  adgroup_criterion_operations = BuildAdGroupCriterionOperations(
-      adgroup_operations, number_of_keywords)
-  adgroup_ad_operations = BuildAdGroupAdOperations(adgroup_operations, client, url, description, prix, telephone)
+  AgId = getCampaign(client, telephone)
+  if AgId == "erreur":
 
-  # Upload operations.
-  batch_job_helper.UploadOperations(
-      upload_url, budget_operations, campaign_operations,
-      campaign_criterion_operations, adgroup_operations,
-      adgroup_criterion_operations, adgroup_ad_operations)
+    budget_operations = BuildBudgetOperations(batch_job_helper)
+    campaign_operations = BuildCampaignOperations(
+        batch_job_helper, budget_operations, telephone, number_of_campaigns)
+    campaign_criterion_operations = BuildCampaignCriterionOperations(
+        campaign_operations)
+    adgroup_operations = BuildAdGroupOperations(
+        batch_job_helper, campaign_operations, telephone, number_of_adgroups)
+    adgroup_criterion_operations = BuildAdGroupCriterionOperations(
+        adgroup_operations, number_of_keywords)
+    adgroup_ad_operations = BuildAdGroupAdOperations(adgroup_operations, client, url, description, prix, telephone)
+     # Upload operations.
+    batch_job_helper.UploadOperations(
+        upload_url, budget_operations, campaign_operations,
+        campaign_criterion_operations, adgroup_operations,
+        adgroup_criterion_operations, adgroup_ad_operations)
 
-  # Download and display results.
-  download_url = GetBatchJobDownloadUrlWhenReady(client, batch_job_id)
-  response = urlopen(download_url).read()
-  PrintResponse(batch_job_helper, response)
+    # Download and display results.
+    download_url = GetBatchJobDownloadUrlWhenReady(client, batch_job_id)
+    response = urlopen(download_url).read()
+    PrintResponse(batch_job_helper, response)
+
+  else:
+      ad_group_ad_service = client.GetService('AdGroupAdService', version='v201809')
+
+      # Create the ad.
+      multi_asset_responsive_display_ad = {
+          'xsi_type': 'MultiAssetResponsiveDisplayAd',
+          'headlines': [{
+          'asset': {
+              'xsi_type': 'TextAsset',
+              'assetText': description
+          }
+      }],
+      'descriptions': [{
+          'asset': {
+              'xsi_type': 'TextAsset',
+              'assetText': 'Prix: '+prix+' CFA  Contact: '+telephone
+          }
+
+      }],
+      'businessName': "Le comparateur",
+      'longHeadline': {
+          'asset': {
+              'xsi_type': 'TextAsset',
+              'assetText': 'Comparateur de prix.',
+          }
+      },
+      # This ad format does not allow the creation of an image asset by setting
+      # the asset.imageData field. An image asset must first be created using
+      # the AssetService, and asset.assetId must be populated when creating
+      # the ad.
+      'marketingImages': [{
+          'asset': {
+              'xsi_type': 'ImageAsset',
+              'assetId': UploadImageAsset(client, url)
+          }
+      }],
+      'squareMarketingImages': [{
+          'asset': {
+              'xsi_type': 'ImageAsset',
+              'assetId': UploadImageAsset(client, 'http://137.74.199.121/static/ads/3.jpg')
+          }
+      }],
+      # Optional values
+      'finalUrls': ['https://sn.comparez.co'],
+      'callToActionText': 'Shop Now',
+      # Set color settings using hexadecimal values. Set allowFlexibleColor to
+      # false if you want your ads to render by always using your colors
+      # strictly.
+      'mainColor': '#0000ff',
+      'accentColor': '#ffff00',
+      'allowFlexibleColor': False,
+      'formatSetting': 'NON_NATIVE',
+      # Set dynamic display ad settings, composed of landscape logo image,
+      # promotion text, and price prefix.
+      'dynamicSettingsPricePrefix': 'as low as',
+      'dynamicSettingsPromoText': 'Livraison gratuite!',
+      'logoImages': [{
+          'asset': {
+              'xsi_type': 'ImageAsset',
+              'assetId': UploadImageAsset(client, 'http://137.74.199.121/static/ads/2.jpg')
+          }
+      }]
+      }
+
+      # Create ad group ad.
+      ad_group_ad = {
+          'adGroupId': AgId,
+          'ad': multi_asset_responsive_display_ad,
+          # Optional.
+          'status': 'ENABLED'
+      }
+
+      # Add ad.
+      ads = ad_group_ad_service.mutate([
+          {'operator': 'ADD', 'operand': ad_group_ad}
+      ])
+      # Display results.
+      if 'value' in ads:
+        for ad in ads['value']:
+          print ('Added new responsive display ad ad with ID "%d" '
+                'and long headline "%s".'
+                % (ad['ad']['id'], ad['ad']['longHeadline']['asset']['assetText']))
+      else:
+        print ('No ads were added.')
+
+
+
 
 
 def AddBatchJob(client):
@@ -109,7 +202,7 @@ def BuildAdGroupAdOperations(adgroup_operations, client, url, description, prix,
     adgroup_operations: a list containing the operations that will add AdGroups.
   Returns:
     a list containing the operations that will create a new ExpandedTextAd for
-    each of the provided AdGroups. 
+    each of the provided AdGroups.
   """
   print(description)
   adgroup_ad_operations = [
@@ -135,7 +228,7 @@ def BuildAdGroupAdOperations(adgroup_operations, client, url, description, prix,
               'xsi_type': 'TextAsset',
               'assetText': 'Prix: '+prix+' CFA  Contact: '+telephone
           }
-    
+
       }],
       'businessName': "Le comparateur",
       'longHeadline': {
@@ -220,29 +313,29 @@ def BuildAdGroupCriterionOperations(adgroup_operations, number_of_keywords=1):
                   'matchType': 'BROAD'
               },
               'criterion': {
-                  
+
                   'xsi_type': 'Placement',
                   'url': site
-                
+
               },
-              
+
           },
-          
+
           'operator': 'ADD'
       }
-      
-      
+
+
       for adgroup_operation in adgroup_operations
       for site in sites
       for age in ages
-      for genre in gender 
+      for genre in gender
       for i in range(number_of_keywords)]
 
   return criterion_operations
 
 
 def BuildAdGroupOperations(batch_job_helper,
-                           campaign_operations, number_of_adgroups=1):
+                           campaign_operations, telephone, number_of_adgroups=1):
   """Builds the operations adding desired number of AdGroups to given Campaigns.
   Note: When the AdGroups are created, they will have a different Id than those
   generated here as a temporary Id. This is just used to identify them in the
@@ -268,7 +361,7 @@ def BuildAdGroupOperations(batch_job_helper,
           'operand': {
               'campaignId': campaign_operation['operand']['id'],
               'id': batch_job_helper.GetId(),
-              'name': 'Comparez groupe annonce #%s' % uuid.uuid4(),
+              'name': telephone,
               'biddingStrategyConfiguration': {
                   'bids': [
                       {
@@ -354,8 +447,79 @@ def BuildCampaignCriterionOperations(campaign_operations):
   return criterion_operations
 
 
+def getCampaign(client, telephone):
+     # Initialize appropriate service.
+   # Initialize appropriate service.
+  response = ""
+  campaign_service = client.GetService('CampaignService', version='v201806')
+  ad_group_service = client.GetService('AdGroupService', version='v201806')
+  campagne_id = ""
+  ad_group_id = ""
+  # Construct query and get all campaigns.
+  query = (adwords.ServiceQueryBuilder()
+           .Select('Id', 'Name', 'Status')
+           .Where('Name').EqualTo(telephone) #ENABLED
+           .OrderBy('Name')
+           .Limit(0, PAGE_SIZE)
+           .Build())
+
+  for page in query.Pager(campaign_service):
+    try:
+      # Display results.
+      if 'entries' in page:
+        for campaign in page['entries']:
+
+          campagne_id = campaign['id']
+          print ('Campaign with id "%s", name "%s", and status "%s" was '
+                'found.' % (campaign['id'], campaign['name'],
+                            campaign['status']))
+      else:
+        print ('No campaigns were found.')
+    except GoogleAdsServerFault:
+      print('erreur')
+
+   # Construct selector and get all ad groups.
+  offset = 0
+  selector = {
+      'fields': ['Id', 'Name', 'Status'],
+      'predicates': [
+          {
+              'field': 'CampaignId',
+              'operator': 'EQUALS',
+              'values': [campagne_id]
+          }
+      ],
+      'paging': {
+          'startIndex': str(offset),
+          'numberResults': str(PAGE_SIZE)
+      }
+  }
+  more_pages = True
+  while more_pages:
+    try:
+      page = ad_group_service.get(selector)
+    except GoogleAdsServerFault:
+      response = "erreur"
+
+    # Display results.
+    if 'entries' in page:
+      for ad_group in page['entries']:
+        response = ad_group['id']
+        print ('Ad group with name "%s", id "%s" and status "%s" was '
+               'found.' % (ad_group['name'], ad_group['id'],
+                           ad_group['status']))
+    else:
+      print ('No ad groups were found.')
+    offset += PAGE_SIZE
+    selector['paging']['startIndex'] = str(offset)
+    more_pages = offset < int(page['totalNumEntries'])
+  return response
+
+
+
+
 def BuildCampaignOperations(batch_job_helper,
-                            budget_operations, number_of_campaigns=1):
+                            budget_operations, telephone, number_of_campaigns=1):
   """Builds the operations needed to create a new Campaign.
   Note: When the Campaigns are created, they will have a different Id than those
   generated here as a temporary Id. This is just used to identify them in the
@@ -381,11 +545,11 @@ def BuildCampaignOperations(batch_job_helper,
           # operations.
           'xsi_type': 'CampaignOperation',
           'operand': {
-              'name': 'Comparez #%s' % uuid.uuid4(),
-              # Recommendation: Set the campaign to PAUSED when creating it to
+              'name': telephone,
+              # Recommendation: Set the campaign to ENABLED when creating it to
               # stop the ads from immediately serving. Set to ENABLED once
               # you've added targeting and the ads are ready to serve.
-              'status': 'PAUSED',
+              'status': 'ENABLED',
               # This is a temporary Id used by the BatchJobService to identify
               # the Campaigns for operations that require a campaignId.
               'id': batch_job_helper.GetId(),

@@ -20,8 +20,8 @@ body {
 .img-photo {
     vertical-align: middle;
     border-style: none;
-    height: 120px;
-    margin-top: -80px;
+    height: 97px;
+    margin-top: -85px;
 }
 
 .heading {
@@ -188,12 +188,11 @@ body {
 
 .btn-item1 {
     margin-left: 20px;
-    margin-top: -320px !important;
-    background-color: #2eee2e;
-    height: 40px;
-    border-radius: 35px;
-
-
+    margin-top: -200px !important;
+    background-color: darkgreen;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
 }
 
 #photo-text {
@@ -256,7 +255,7 @@ body {
 
 
 .sauvegarder {
-    margin-top: -170px !important;
+    margin-top: -110px !important;
     left: -15px;
 }
 
@@ -286,32 +285,35 @@ body {
 }
 
 #p1 {
-    margin-top: -8px;
+    margin-top: -10px;
     margin-bottom: 1rem;
     position: absolute;
-    margin-left: 35px;
+    margin-left: 0px;
+    width: 247px;
+    margin-left: 0px;
     font-size: 12px;
 }
 
 #p2 {
-    margin-top: -10px;
+    margin-top: -11px;
     margin-bottom: 1rem;
     position: absolute;
     margin-left: 0px;
-    width: 350px;
-    margin-left: -45px;
+    width: 245px;
+    margin-left: 0px;
     font-size: 12px;
 }
 
 #p3 {
-    margin-top: -10px;
+    margin-top: -8px;
     margin-bottom: 1rem;
     position: absolute;
     margin-left: 0px;
-    width: 350px;
-    margin-left: -45px;
-    font-size: 12px;
+    width: 252px;
+    margin-left: -1px;
+    font-size: 13px;
 }
+
 
 #icon1 {
     margin-top: -10px;
@@ -333,29 +335,32 @@ body {
 }
 
 .btn_download {
-    height: 50px;
+    height: 32px;
     border-radius: 5px;
 }
 
 .btn_download1 {
-    margin-left: 20px;
-    margin-top: 70px;
-    width: 175px;
-    height: 30px;
+    margin-left: -25px;
+    margin-top: 62px;
+    width: 238px;
+    height: 29px;
+    top: 17px;
 }
 
 .btn_download2 {
-    margin-left: 20px;
-    margin-top: 30px;
-    width: 230px;
-    height: 30px;
+    margin-left: -25px;
+    margin-top: 8px;
+    width: 238px;
+    height: 29px;
+    top: 17px;
 }
 
 .btn_download3 {
-    margin-left: 20px;
-    margin-top: 20px;
-    width: 230px;
-    height: 30px;
+    margin-left: -25px;
+    margin-top: 8px;
+    width: 238px;
+    height: 29px;
+    top: 17px;
 }
 
 .btn-insert {
@@ -715,6 +720,7 @@ body {
     -moz-outline-style: none;
     border: 0px;
     margin-right: 10px;
+    height: 29px;
     margin-top: 15px;
 }
 
@@ -770,7 +776,7 @@ body {
     background: #000;
     width: 250px;
     height: 200px;
-    line-height: 200px;
+    line-height: 146px;
     font-size: 5em;
     text-align: center;
     color: #FFF;
@@ -826,7 +832,7 @@ body {
 
 .next,
 .prev {
-    top: -31px;
+    top: 350px;
     padding: 1em 2em;
     cursor: pointer;
     height: 35px;
@@ -853,4 +859,10 @@ body {
     position: absolute;
     margin-left: -20px;
     margin-top: 2px;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #0D6C0D;
+    border-color: #0D6C0D;
 }

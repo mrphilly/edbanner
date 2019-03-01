@@ -1,5 +1,12 @@
 $(document).ready(function () {
-
+    $('.b, .c, .d').hide();
+    $('.next, .prev').hide();
+    $('.next').on("click", function () {
+        $('.carousel').carousel('next')
+    })
+    $('.prev').on("click", function () {
+        $('.carousel').carousel('prev')
+    })
     onReady(function () {
 
         setVisible('.page', true);
@@ -16,16 +23,35 @@ $(document).ready(function () {
 
     $('#error').hide();
 
-    $('.carousel').on('slide.bs.carousel', function () {
-        let currentIndex = $('div.active').index() + 1;
-        if (currentIndex == 1) {
-            $('.prev').css('display', "block")
-            $('.next').css("display", "block")
+    function myfunc(item) {
+        if (currentIndex == 2) {
+            var currentIndex = $('.' + item).index() + 1;
+            console.log(currentIndex)
+            $('.next, .prev').show();
+
         } else if (currentIndex == 3) {
-            $('.prev').css('display', "block")
-            $('.next').css("display", "none")
+            var currentIndex = $('.' + item).index() + 1;
+            console.log(currentIndex)
+            $('.next, .prev').show();
+
+        } else if (currentIndex == 4) {
+            var currentIndex = $('.' + item).index() + 1;
+            console.log(currentIndex)
+            $('.prev').show()
+            $('.next').hide()
+        } else {
+            $('.next, .prev').show();
         }
-    });
+    }
+
+    var carouselEl = $('.carousel');
+    var carouselItems = carouselEl.find('.item');
+    carouselEl.on('slide.bs.carousel', function (event) {
+        var tab = ["a", "b", "c", "d"]
+        tab.forEach(myfunc)
+
+    })
+
 })
 
 function onReady(callback) {
@@ -231,7 +257,6 @@ function addLogo() {
 
         $('.next').trigger('click')
         $('.carousel').carousel('next')
-        $('.carousel-control-next').css("display", "none")
 
     }
 
@@ -286,11 +311,10 @@ function addImage() {
         }
         $('.next').trigger('click');
         $('.b, .c').show();
-        $('.next, .prev').show();
+
         $('.carousel').carousel('next')
         $('.carousel').carousel('pause')
-        $('.carousel-control-prev-icon').css('margin-top', '200%')
-        $('.carousel-control-next-icon').css('margin-top', '200%')
+
     }
 
     if (file) {

@@ -55,6 +55,7 @@
                          onchange="addLogo()" />
                     <div class="container2">
                          <div class="carousel">
+                              <div class="carousel-inner"></div>
                               <div class="item a">
 
                                    <img src="/static/img/photo.jpg" class="img-photo">
@@ -91,7 +92,7 @@
                                         <div class="form-group">
 
                                              <input type="text" class="form-control field" pattern="\d*" id="tel"
-                                                  onkeyup="setTel()" placeholder="XX-XXX-XX-XX" maxlength="9" required />
+                                                  onkeyup="setTel()" placeholder="exemple: 7712345678" maxlength="9" required />
                                         </div>
 
                                         <button class="btn btn-item1 btn3d sauvegarder" type="button" onclick="verifyInput()"
@@ -109,31 +110,29 @@
                                    <div class="lds-hourglass1"></div>
                                    <div class="block-publish" style="display: none;">
 
-                                        <div class="row" style="width: 250px">
-                                             <button class="btn btn-success btn_download1 btn_download" type="button"
+                                        <div class="row" style="width: 2700px">
+                                             <button class="btn btn-secondary btn_download1 btn_download" type="button"
                                                   onclick="takeScreenShotComparez()" data-toggle="modal" data-target="#visualiser1"
                                                   id="download">
-                                                  <div class="row" style="width: 200px"><i class="material-icons" id="icon1">&#xe8f4;</i>
+                                                  <div class="row" style="width: 300px">
                                                        <p id="p1">Votre bannière chez nous</p>
                                                   </div>
                                              </button>
                                         </div>
-                                        <div class="row">
-                                             <button class="btn btn-success btn_download btn_download2 " type="button"
+                                        <div class="row" style="width: 2700px">
+                                             <button class="btn btn-secondary btn_download btn_download2 " type="button"
                                                   onclick="takeScreenShotAdwords()" data-toggle="modal" data-target="#visualiser2"
-                                                  id="download" style="border-radius: 5px">
-                                                  <div class="row" style="width: 320px"><img src="/static/img/svg/adwords.svg"
-                                                            id="icon2" alt="Kiwi standing on oval">
+                                                  id="download">
+                                                  <div class="row" style="width: 300px">
                                                        <p id="p2">Votre bannière chez nous et adwords</p>
                                                   </div>
                                              </button>
                                         </div>
-                                        <div class="row">
-                                             <button class="btn btn-success btn_download btn_download3" type="button"
+                                        <div class="row" style="width: 2700px">
+                                             <button class="btn btn-secondary btn_download btn_download3" type="button"
                                                   onclick="takeScreenShotFacebook()" data-toggle="modal" data-target="#visualiser3"
-                                                  id="download" style="border-radius: 5px">
-                                                  <div class="row" style="width: 350px"><img src="/static/img/svg/facebook.svg"
-                                                            id="icon3" alt="Kiwi standing on oval">
+                                                  id="download">
+                                                  <div class="row" style="width: 300px">
 
                                                        <p id="p3">Votre
                                                             bannière chez nous et facebook</p>
@@ -143,6 +142,7 @@
                                    </div>
 
                               </div>
+                         </div>
                          </div>
                     </div>
                     <div class="row" style="justify-content: space-evenly">

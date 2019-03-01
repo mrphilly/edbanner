@@ -187,10 +187,10 @@ body {
 .btn-item1 {
     margin-left: 20px;
     margin-top: -130px !important;
-    background-color: #2eee2e;
-    height: 40px;
-    border-radius: 35px;
-
+    background-color: darkgreen;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
 
 }
 
@@ -242,7 +242,7 @@ body {
 #mynav {
     position: relative;
     height: 80px;
-    align: center;
+    box-align: center;
     background-color: transparent !important
         /*background-color: rgba(10, 1, 1, 0.578) !important;*/
 }
@@ -279,26 +279,34 @@ body {
 }
 
 #p1 {
-    margin-top: -8px;
-    margin-bottom: 1rem;
-    position: absolute;
-    margin-left: 35px;
+    margin-top: -10px;
+margin-bottom: 1rem;
+position: absolute;
+margin-left: 0px;
+width: 247px;
+margin-left: 0px;
+font-size: 12px;
 }
 
 #p2 {
-    margin-top: -10px;
+    margin-top: -11px;
     margin-bottom: 1rem;
     position: absolute;
     margin-left: 0px;
-    width: 350px;
+    width: 245px;
     margin-left: 0px;
+    font-size: 12px;
+}
+#p3 {
+    margin-top: -8px;
+    margin-bottom: 1rem;
+    position: absolute;
+    margin-left: 0px;
+    width: 252px;
+    margin-left: -1px;
+    font-size: 13px;
 }
 
-#p3 {
-    width: 350px;
-    margin-left: 20px;
-    margin-top: 10px
-}
 
 #icon1 {
     margin-top: -10px;
@@ -319,26 +327,32 @@ body {
 }
 
 .btn_download {
-    height: 50px;
+    height: 32px;
     border-radius: 5px;
 }
 
 .btn_download1 {
-    margin-left: 20px;
-    margin-top: 70px;
-    width: 300px;
+    margin-left: 25px;
+    margin-top: 62px;
+    width: 238px;
+    height: 29px;
+    top: 17px;
 }
 
 .btn_download2 {
-    margin-left: 20px;
-    margin-top: 30px;
-    width: 350px;
+    margin-left: 25px;
+    margin-top: 8px;
+    width: 238px;
+    height: 29px;
+    top: 17px;
 }
 
 .btn_download3 {
-    margin-left: 20px;
-    margin-top: 20px;
-    width: 350px;
+    margin-left: 25px;
+    margin-top: 8px;
+    width: 238px;
+    height: 29px;
+    top: 17px;
 }
 
 .btn-insert {
@@ -686,6 +700,7 @@ body {
     border: 0px;
     margin-right: 10px;
     margin-top: 15px;
+    height: 33px;
 }
 
 .btn3d:focus {
@@ -739,7 +754,7 @@ body {
     position: absolute;
     background: #000;
     width: 250px;
-    height: 200px;
+    
     line-height: 200px;
     font-size: 5em;
     text-align: center;
@@ -819,4 +834,9 @@ body {
 
 #final-img-adwords {
     margin-left: -160px;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #0D6C0D;
+    border-color: #0D6C0D;
 }
