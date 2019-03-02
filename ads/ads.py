@@ -23,7 +23,7 @@ def UploadImageAsset(client, url):
     The ID of the uploaded image.
   """
   # Initialize appropriate service.
-  asset_service = client.GetService('AssetService', version='v201809')
+  asset_service = client.GetService('AssetService', version='v201806')
 
   # Download the image.
   headers = {
@@ -55,17 +55,19 @@ def UploadImageAsset(client, url):
 
 def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url, description, prix, telephone):
   # Initialize BatchJobHelper.
+  campagne = getCampaign(client, telephone)
 
-  if getCampaign(client, telephone) != "SelectorError.INVALID_PREDICATE_VALUE @ serviceSelector":
-     
-         
-         print("start")
-         print("AgId"+ AgId)
+  if campagne != None:
+        ad_group_ad_service = client.GetService('AdGroupAdService', version='v201806')
+        print("start")
+        AgId = AdGroupId(client, campagne)
+        print(AgId)
 
-         ad_group_ad_service = client.GetService('AdGroupAdService', version='v201806')
+
+
 
       # Create the ad.
-         multi_asset_responsive_display_ad = {
+        multi_asset_responsive_display_ad = {
           'xsi_type': 'MultiAssetResponsiveDisplayAd',
           'headlines': [{
           'asset': {
@@ -122,11 +124,12 @@ def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url
               'xsi_type': 'ImageAsset',
               'assetId': UploadImageAsset(client, 'http://137.74.199.121/static/ads/2.jpg')
           }
-        }]
-    }
+      }]
+
+        }
 
       # Create ad group ad.
-         ad_group_ad = {
+        ad_group_ad = {
           'adGroupId': AgId,
           'ad': multi_asset_responsive_display_ad,
           # Optional.
@@ -134,17 +137,19 @@ def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url
          }
 
       # Add ad.
-         ads = ad_group_ad_service.mutate([
+        ads = ad_group_ad_service.mutate([
           {'operator': 'ADD', 'operand': ad_group_ad}
         ])
       # Display results.
-         if 'value' in ads:
+        if 'value' in ads:
             for ad in ads['value']:
              print ('Added new responsive display ad ad with ID "%d" '
                 'and long headline "%s".'
                 % (ad['ad']['id'], ad['ad']['longHeadline']['asset']['assetText']))
-         else:
+        else:
              print ('No ads were added.')
+
+
   else:
       batch_job_helper = client.GetBatchJobHelper(version='v201806')
   # Create a BatchJob.
@@ -176,7 +181,7 @@ def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url
       response = urlopen(download_url).read()
       PrintResponse(batch_job_helper, response)
 
-    
+
 
 
 
@@ -228,7 +233,7 @@ def BuildAdGroupAdOperations(adgroup_operations, client, url, description, prix,
       'descriptions': [{
           'asset': {
               'xsi_type': 'TextAsset',
-              'assetText': 'Prix: '+prix+' CFA  Contact: '+telephone
+              'assetText': 'Prix: '+prix+'  Contact: '+telephone
           }
 
       }],
@@ -450,82 +455,79 @@ def BuildCampaignCriterionOperations(campaign_operations):
 
 
 def getCampaign(client, telephone):
-    # Initialize appropriate service.
-  response = ""
+
   campaign_service = client.GetService('CampaignService', version='v201806')
-  ad_group_service = client.GetService('AdGroupService', version='v201806')
-  campagne_id = ""
-  ad_group_id = ""
-  # Construct query and get all campaigns.
+  result = None
+  response = ""
   query = (adwords.ServiceQueryBuilder()
-           .Select('Id', 'Name', 'Status')
-           .Where('Name').EqualTo(telephone) #ENABLED
-           .OrderBy('Name')
-           .Limit(0, PAGE_SIZE)
-           .Build())
-  try:
-    Page = query.Pager(campaign_service)
-  except GoogleAdsServerFault as e:
-    print(e.faultMessage)
+            .Select('Id', 'Name', 'Status')
+            .Where('Name').EqualTo(telephone) #ENABLED
+            .OrderBy('Name')
+            .Limit(0, PAGE_SIZE)
+            .Build())
+
+  Page = query.Pager(campaign_service)
   for page in Page:
-    try:
+
       # Display results.
       if 'entries' in page:
         for campaign in page['entries']:
-          try:
-            campagne_id = campaign['id']
-          except:
-            break
+          response = campaign['id']
+          if str(response).isdigit():
+            result = response
+          else:
+            result = result
           #print ('Campaign with id "%s", name "%s", and status "%s" was '
            #     'found.' % (campaign['id'], campaign['name'],
              #               campaign['status']))
       else:
-        print ('No campaigns were found.')
-    except GoogleAdsServerFault as e:
-      break
+        result = result
+  return result
 
-   # Construct selector and get all ad groups.
-  offset = 0
-  selector = {
-      'fields': ['Id', 'Name', 'Status'],
-      'predicates': [
-          {
-              'field': 'CampaignId',
-              'operator': 'EQUALS',
-              'values': [campagne_id]
-          }
-      ],
-      'paging': {
-          'startIndex': str(offset),
-          'numberResults': str(PAGE_SIZE)
-      }
-  }
-  more_pages = True
-  while more_pages:
-    try:
-      page = ad_group_service.get(selector)
-    except GoogleAdsServerFault as e:
-      response = "SelectorError.INVALID_PREDICATE_VALUE @ serviceSelector"
+def AdGroupId(client, campagne__id):
+      result = None
+      if campagne__id != "None":
+        ad_group_service = client.GetService('AdGroupService', version='v201806')
+        offset = 0
+        selector = {
+            'fields': ['Id', 'Name', 'Status'],
+            'predicates': [
+                {
+                    'field': 'CampaignId',
+                    'operator': 'EQUALS',
+                    'values': [campagne__id]
+                }
+            ],
+            'paging': {
+                'startIndex': str(offset),
+                'numberResults': str(PAGE_SIZE)
+            }
+        }
+        more_pages = True
 
-    # Display results.
-    try:
-      if 'entries' in page:
-        for ad_group in page['entries']:
-          try:
-            response = ad_group['id']
-          except:
-            continue
-          #print ('Ad group with name "%s", id "%s" and status "%s" was '
-           #      'found.' % (ad_group['name'], ad_group['id'],
-            #                 ad_group['status']))
+        while more_pages:
+          page = ad_group_service.get(selector)
+
+
+            # Display results.
+
+          if 'entries' in page:
+            for ad_group in page['entries']:
+              result = ad_group['id']
+                  #print ('Ad group with name "%s", id "%s" and status "%s" was '
+                  #      'found.' % (ad_group['name'], ad_group['id'],
+                    #                 ad_group['status']))
+          else:
+            result = result
+          offset += PAGE_SIZE
+          selector['paging']['startIndex'] = str(offset)
+          more_pages = offset < int(page['totalNumEntries'])
       else:
-        break
-    except GoogleAdsServerFault as e:
-      print(e)
-    offset += PAGE_SIZE
-    selector['paging']['startIndex'] = str(offset)
-    more_pages = offset < int(page['totalNumEntries'])
-  return response
+        result = result
+
+      return result
+
+
 
 
 

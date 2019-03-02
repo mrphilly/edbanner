@@ -46,7 +46,7 @@ def upload():
         adwords_client = adwords.AdWordsClient.LoadFromStorage()
         print(ads.ads(adwords_client, NUMBER_OF_CAMPAIGNS_TO_ADD, NUMBER_OF_ADGROUPS_TO_ADD,NUMBER_OF_KEYWORDS_TO_ADD, url, description, prix, tel))
 
-     return  url
+     return  render_template("index.html")
 
 
 
