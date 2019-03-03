@@ -3,9 +3,11 @@ $(document).ready(function () {
     $('.next, .prev').hide();
     $('.next').on("click", function () {
         $('.carousel').carousel('next')
+
     })
     $('.prev').on("click", function () {
         $('.carousel').carousel('prev')
+
     })
     onReady(function () {
 
@@ -23,34 +25,7 @@ $(document).ready(function () {
 
     $('#error').hide();
 
-    function myfunc(item) {
-        if (currentIndex == 2) {
-            var currentIndex = $('.' + item).index() + 1;
-            console.log(currentIndex)
-            $('.next, .prev').show();
 
-        } else if (currentIndex == 3) {
-            var currentIndex = $('.' + item).index() + 1;
-            console.log(currentIndex)
-            $('.next, .prev').show();
-
-        } else if (currentIndex == 4) {
-            var currentIndex = $('.' + item).index() + 1;
-            console.log(currentIndex)
-            $('.prev').show()
-            $('.next').hide()
-        } else {
-            $('.next, .prev').show();
-        }
-    }
-
-    var carouselEl = $('.carousel');
-    var carouselItems = carouselEl.find('.item');
-    carouselEl.on('slide.bs.carousel', function (event) {
-        var tab = ["a", "b", "c", "d"]
-        tab.forEach(myfunc)
-
-    })
 
 })
 
@@ -257,6 +232,7 @@ function addLogo() {
 
         $('.next').trigger('click')
         $('.carousel').carousel('next')
+        $('.next').hide()
 
     }
 
@@ -311,6 +287,7 @@ function addImage() {
         }
         $('.next').trigger('click');
         $('.b, .c').show();
+        $('.next, .prev').show()
 
         $('.carousel').carousel('next')
         $('.carousel').carousel('pause')

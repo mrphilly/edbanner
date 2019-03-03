@@ -25,7 +25,29 @@ body {
 }
 
 .infos {
-    margin-left: 100px
+    margin-left: 20px;
+    margin-top: -120px;
+}
+
+#label {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#infos-desc {
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+#infos-prix {
+    font-size: 18px;
+    margin-left: 10px;
+    margin-top: -1px;
+}
+
+#infos-tel {
+    font-size: 18px;
+    margin-left: 10px;
 }
 
 .heading {
@@ -166,8 +188,9 @@ body {
     transform: rotate(-6deg);
 }
 
-
-
+.modal-body {
+    height: 500px
+}
 
 #btn-visualiser {
     margin-right: 120px;
@@ -214,11 +237,34 @@ body {
 
 #down {
     border-radius: 5px;
-    margin-top: 10px;
-    margin-left: 90px;
+    margin-top: -230px;
+    margin-left: 190px;
     height: auto;
     width: 130px;
     display: flex;
+    position: absolute;
+}
+
+#down1 {
+    border-radius: 5px;
+    margin-top: -5px;
+    margin-left: 100px;
+    height: auto;
+    width: 130px;
+    display: flex;
+    position: absolute;
+}
+
+#row1 {
+    margin-top: -120px
+}
+
+#publier_comparez {
+    margin-top: -400px;
+}
+
+#btn_dismiss {
+    position: absolute;
 }
 
 .modal-content {
@@ -227,7 +273,7 @@ body {
     display: flex;
     -ms-flex-direction: column;
     flex-direction: column;
-    width: 400px;
+    width: 350px;
     pointer-events: auto;
     background-color: #fff;
     background-clip: padding-box;
@@ -708,11 +754,19 @@ body {
 }
 
 .carousel-control-prev {
-    color: black
+    color: black ! important;
 }
 
 .carousel-control-prev {
-    color: black
+    color: black !important;
+}
+
+.carousel-control-next:focus,
+.carousel-control-next:hover,
+.carousel-control-prev:focus,
+.carousel-control-prev:hover {
+    color: black;
+    position: absolute;
 }
 
 @keyframes lds-ripple {
@@ -790,10 +844,16 @@ body {
     transition: transform 1s;
 }
 
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+}
+
 .item {
     display: block;
     position: absolute;
-    background: #000;
+    background: white;
     width: 250px;
     height: 200px;
     line-height: 146px;
@@ -854,10 +914,8 @@ body {
 .prev {
     top: 350px;
     padding: 1em 2em;
-    cursor: pointer;
-    height: 35px;
-
-    transition: box-shadow 0.1s, top 0.1s;
+    width: 0% ! important;
+    height: auto;
 }
 
 
@@ -869,16 +927,19 @@ body {
 }
 
 .next {
-    osition: absolute;
+    position: absolute;
     right: 5em;
-    margin-right: -120px;
+    margin-right: -240px;
     color: black;
+    font-size: 40px !important;
 }
 
 .prev {
     position: absolute;
-    margin-left: -20px;
+    margin-left: -80px;
     margin-top: 2px;
+    font-size: 40px !important;
+    color: black;
 }
 
 .btn-secondary {

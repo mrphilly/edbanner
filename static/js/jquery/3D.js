@@ -19,10 +19,25 @@ $(".prev").on("click", {
 function rotate(e) {
      if (e.data.d == "n") {
           currdeg = currdeg - 60;
+          console.log(currdeg)
+          if (currdeg == -60) {
+               $(".next, .prev").show()
+          } else if (currdeg == -120) {
+               $('.next').hide()
+               $('.prev').show()
+          } else if (currdeg == -180) {
+               $('.prev').show()
+          }
      }
      if (e.data.d == "p") {
           currdeg = currdeg + 60;
-          $('.next').show()
+          console.log(currdeg)
+          if (currdeg == 0) {
+               $('.prev').hide()
+               $('.next').show()
+          } else if (currdeg == -60) {
+               $('.next, .prev').show()
+          }
      }
      carousel.css({
           "-webkit-transform": "rotateY(" + currdeg + "deg)",

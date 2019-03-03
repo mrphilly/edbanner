@@ -54,203 +54,204 @@
                     <input type="file" id="logo-insert" style="position: absolute; left: 0; width: 90px; display: inline-block; opacity: 0;"
                          onchange="addLogo()" />
                     <div class="container2">
-                         <div class="carousel">
-                              <div class="carousel-inner"></div>
-                              <div class="item a">
+                         <div class="carousel slide">
+                              <div class="carousel-inner">
+                                   <div class="item a active">
 
-                                   <img src="/static/img/photo.jpg" class="img-photo">
+                                        <img src="/static/img/photo.jpg" class="img-photo">
 
-                                   <button class="btn btn-item1 btn3d" type="button" onclick="triggerImage()">
+                                        <button class="btn btn-item1 btn3d" type="button" onclick="triggerImage()">
 
-                                        <p id="photo-text">Insérer une image</p>
-                                   </button>
-
-                              </div>
-                              <div class="item b">
-                                   <img src="/static/img/logo1.jpg" class="img-photo">
-                                   <button class="btn btn-item1 btn3d" type="button" onclick="triggerLogo()">
-
-                                        <p id="photo-text">Insérer un logo</p>
-                                   </button>
-                              </div>
-                              <div class="item c">
-                                   <img src="/static/img/desc.jpg" class="img-photo img-desc">
-                                   <p id="error" style="color: red; font-size: 14px;">Veuillez remplir tous les champs
-                                        svp !</p>
-                                   <form role="form" class="form-infos">
-                                        <div class="form-group">
-
-                                             <input type="text" class="form-control field" id="description" onkeyup="setDescription()"
-                                                  placeholder="Saisissez votre description" aria-multiline="true"
-                                                  maxlength="40" required />
-                                        </div>
-                                        <div class="form-group">
-
-                                             <input type="text" class="form-control field" id="prix" onkeyup="setPrix()"
-                                                  placeholder="Prix en CFA" pattern="\d*" maxlength="9" required />
-                                        </div>
-                                        <div class="form-group">
-
-                                             <input type="text" class="form-control field" pattern="\d*" id="tel"
-                                                  onkeyup="setTel()" placeholder="exemple: 7712345678" maxlength="9" required />
-                                        </div>
-
-                                        <button class="btn btn-item1 btn3d sauvegarder" type="button" onclick="verifyInput()"
-                                             data-dismiss="modal">
-
-                                             <p id="photo-text">Sauvegarder</p>
+                                             <p id="photo-text f">Insérer une image</p>
                                         </button>
 
-
-
-                                   </form>
-                              </div>
-
-                              <div class="item d">
-                                   <div class="lds-hourglass1"></div>
-                                   <div class="block-publish" style="display: none;">
-
-                                        <div class="row" style="width: 2700px">
-                                             <button class="btn btn-secondary btn_download1 btn_download" type="button"
-                                                  onclick="takeScreenShotComparez()" data-toggle="modal" data-target="#visualiser1"
-                                                  id="download">
-                                                  <div class="row" style="width: 300px">
-                                                       <p id="p1">Votre bannière chez nous</p>
-                                                  </div>
-                                             </button>
-                                        </div>
-                                        <div class="row" style="width: 2700px">
-                                             <button class="btn btn-secondary btn_download btn_download2 " type="button"
-                                                  onclick="takeScreenShotAdwords()" data-toggle="modal" data-target="#visualiser2"
-                                                  id="download">
-                                                  <div class="row" style="width: 300px">
-                                                       <p id="p2">Votre bannière chez nous et adwords</p>
-                                                  </div>
-                                             </button>
-                                        </div>
-                                        <div class="row" style="width: 2700px">
-                                             <button class="btn btn-secondary btn_download btn_download3" type="button"
-                                                  onclick="takeScreenShotFacebook()" data-toggle="modal" data-target="#visualiser3"
-                                                  id="download">
-                                                  <div class="row" style="width: 300px">
-
-                                                       <p id="p3">Votre
-                                                            bannière chez nous et facebook</p>
-                                                  </div>
-                                             </button>
-                                        </div>
                                    </div>
+                                   <div class="item b">
+                                        <img src="/static/img/logo1.jpg" class="img-photo">
+                                        <button class="btn btn-item1 btn3d" type="button" onclick="triggerLogo()">
 
-                              </div>
-                         </div>
-                         </div>
-                    </div>
-                    <div class="row" style="justify-content: space-evenly">
-                         <i class="material-icons carousel-control-prev prev">&#xe408;</i>
-                         <i class="material-icons carousel-control-next next">&#xe409;</i>
-                    </div>
-               </div>
-
-          </div>
-
-          <div class="modal fade" id="visualiser1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-               aria-hidden="true">
-               <div class="modal-dialog">
-                    <div class="modal-content">
-                         <!-- Modal Header -->
-                         <div class="modal-header">
-                              <h4 class="modal-title" id="myModalLabel">
-                                   Bannière
-                              </h4>
-                         </div>
-
-                         <!-- Modal Body -->
-                         <div class="modal-body">
-                              <div class="row">
-                                   <div class="col">
-                                        <img src="#" id="final-img" alt="final-image" style="width: 270px; height: 347px" />
+                                             <p id="photo-text f">Insérer un logo</p>
+                                        </button>
                                    </div>
-                                   <div class="col">
-                                        <div class="row" id="btn-download">
-                                             <div class="col">
-                                                  <button class="btn btn-outline-primary" id="" type="button" onclick=""
-                                                       style="border-radius: 5px">
-                                                       <i class="material-icons" id="">&#xe255;</i> Publier
-                                                  </button>
-                                             </div>
-                                             <div class="col">
-                                                  <button class="btn btn-outline-success" type="button" onclick="telecharger()"
-                                                       id="down">
-                                                       <i class="material-icons" id="">&#xe884;</i> Télécharger
-                                                  </button>
-                                             </div>
-                                        </div>
-                                   </div>
-                              </div>
-                         </div>
-                         <!-- Modal Footer -->
-                         <div class="modal-footer">
-                              <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 40px;">
-                                   Fermer
-                              </button>
-                         </div>
-                    </div>
-               </div>
-               <!-- End Main-container-->
-          </div>
-          <div class="modal fade" id="visualiser2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-               aria-hidden="true">
-               <div class="modal-dialog">
-                    <div class="modal-content">
-                         <!-- Modal Header -->
-                         <div class="modal-header">
-                              <h4 class="modal-title" id="myModalLabel">
-                                   Bannière
-                              </h4>
-                         </div>
+                                   <div class="item c">
+                                        <img src="/static/img/desc.jpg" class="img-photo img-desc">
+                                        <p id="error" style="color: red; font-size: 14px;">Veuillez remplir tous les
+                                             champs
+                                             svp !</p>
+                                        <form role="form" class="form-infos">
+                                             <div class="form-group">
 
-                         <!-- Modal Body -->
-                         <div class="modal-body">
-                              <div class="row">
-                                   <div class="col">
-                                        <form action="/upload" method="POST">
-                                             <img src="#" id="final-img-adwords" alt="final-image" style="margin-left: -150px"
-                                                  name='image' />
-                                             <input type="text" name='input-image' id="input-image" style="visibility: hidden" />
-                                             <input type="text" name='input-desc' id="desc" style="visibility: hidden" />
-                                             <input type="text" name='input-prix' id="price" style="visibility: hidden" />
-                                             <input type="text" name='input-tel' id="telephone" style="visibility: hidden" />
-                                             <div class="infos">
-                                                  <div class="row">
-                                                       <p id="label">Description: </p>
-                                                       <p id="infos-desc"></p>
-                                                  </div>
-                                                  <div class="row">
-                                                       <p id="label">Prix: </p>
-                                                       <p id="infos-prix"></p>
-                                                  </div>
-                                                  <div class="row">
-                                                       <p id="label">Téléphone: </p>
-                                                       <p id="infos-tel"></p>
-                                                  </div>
+                                                  <input type="text" class="form-control field" id="description"
+                                                       onkeyup="setDescription()" placeholder="Saisissez votre description"
+                                                       aria-multiline="true" maxlength="40" required />
                                              </div>
-                                             <button class="btn btn-success" type="submit" onclick="" id="down">
-                                                  <i class="material-icons" id="">&#xe884;</i>Publier
+                                             <div class="form-group">
+
+                                                  <input type="text" class="form-control field" id="prix" onkeyup="setPrix()"
+                                                       placeholder="Prix en CFA" pattern="\d*" maxlength="9" required />
+                                             </div>
+                                             <div class="form-group">
+
+                                                  <input type="text" class="form-control field" pattern="\d*" id="tel"
+                                                       onkeyup="setTel()" placeholder="exemple: 7712345678" maxlength="9"
+                                                       required />
+                                             </div>
+
+                                             <button class="btn btn-item1 btn3d sauvegarder" type="button" onclick="verifyInput()"
+                                                  data-dismiss="modal">
+
+                                                  <p id="photo-text">Sauvegarder</p>
                                              </button>
+
+
+
                                         </form>
                                    </div>
+
+                                   <div class="item d">
+                                        <div class="lds-hourglass1"></div>
+                                        <div class="block-publish" style="display: none;">
+
+                                             <div class="row" style="width: 2700px">
+                                                  <button class="btn btn-secondary btn_download1 btn_download" type="button"
+                                                       onclick="takeScreenShotComparez()" data-toggle="modal"
+                                                       data-target="#visualiser1" id="download">
+                                                       <div class="row" style="width: 300px">
+                                                            <p id="p1">Votre bannière chez nous</p>
+                                                       </div>
+                                                  </button>
+                                             </div>
+                                             <div class="row" style="width: 2700px">
+                                                  <button class="btn btn-secondary btn_download btn_download2 " type="button"
+                                                       onclick="takeScreenShotAdwords()" data-toggle="modal"
+                                                       data-target="#visualiser2" id="download">
+                                                       <div class="row" style="width: 300px">
+                                                            <p id="p2">Votre bannière chez nous et adwords</p>
+                                                       </div>
+                                                  </button>
+                                             </div>
+                                             <div class="row" style="width: 2700px">
+                                                  <button class="btn btn-secondary btn_download btn_download3" type="button"
+                                                       onclick="takeScreenShotFacebook()" data-toggle="modal"
+                                                       data-target="#visualiser3" id="download">
+                                                       <div class="row" style="width: 300px">
+
+                                                            <p id="p3">Votre
+                                                                 bannière chez nous et facebook</p>
+                                                       </div>
+                                                  </button>
+                                             </div>
+                                        </div>
+
+                                   </div>
                               </div>
-                         </div>
-                         <!-- Modal Footer -->
-                         <div class="modal-footer">
-                              <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 40px;">
-                                   Fermer
-                              </button>
                          </div>
                     </div>
                </div>
-               <!-- End Main-container-->
+               <i class="material-icons carousel-control-prev prev">&#xe408;</i>
+               <i class="material-icons carousel-control-next next">&#xe409;</i>
+
+
           </div>
+
+     </div>
+
+     <div class="modal fade" id="visualiser1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+               <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                         <h4 class="modal-title" id="myModalLabel">
+                              Bannière
+                         </h4>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                         <div class="row">
+                              <div class="col">
+                                   <img src="#" id="final-img" alt="final-image" style="width: 270px; height: 347px" />
+                              </div>
+                              <div class="col">
+                                   <div class="row" id="btn-download">
+                                        <div class="col">
+                                             <button class="btn btn-outline-primary" id="publier_comparez" type="button"
+                                                  onclick="" style="border-radius: 5px">
+                                                  <i class="material-icons" id="">&#xe255;</i> Publier
+                                             </button>
+                                        </div>
+                                        <div class="col">
+                                             <button class="btn btn-outline-success" type="button" onclick="telecharger()"
+                                                  id="down">
+                                                  <i class="material-icons" id="">&#xe884;</i> Télécharger
+                                             </button>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                         <button type="button" class="btn btn-default" id="btn_dismiss" data-dismiss="modal" style="margin-right: 40px;">
+                              Fermer
+                         </button>
+                    </div>
+               </div>
+          </div>
+          <!-- End Main-container-->
+     </div>
+     <div class="modal fade" id="visualiser2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+               <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                         <h4 class="modal-title" id="myModalLabel">
+                              Bannière
+                         </h4>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                         <div class="row">
+                              <div class="col">
+                                   <form action="/upload" method="POST">
+                                        <img src="#" id="final-img-adwords" alt="final-image" style="margin-left: -150px"
+                                             name='image' />
+                                        <input type="text" name='input-image' id="input-image" style="visibility: hidden" />
+                                        <input type="text" name='input-desc' id="desc" style="visibility: hidden" />
+                                        <input type="text" name='input-prix' id="price" style="visibility: hidden" />
+                                        <input type="text" name='input-tel' id="telephone" style="visibility: hidden" />
+                                        <div class="infos">
+                                             <div class="row">
+                                                  <p id="label">Description: </p>
+                                                  <p id="infos-desc"></p>
+                                             </div>
+                                             <div class="row">
+                                                  <p id="label">Prix: </p>
+                                                  <p id="infos-prix"></p>
+                                             </div>
+                                             <div class="row">
+                                                  <p id="label">Téléphone: </p>
+                                                  <p id="infos-tel"></p>
+                                             </div>
+                                        </div>
+                                        <button class="btn btn-success" type="submit" onclick="" id="down1">
+                                             <i class="material-icons" id="">&#xe884;</i>Publier
+                                        </button>
+                                   </form>
+                              </div>
+                         </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                         <button type="button" class="btn btn-default" id="btn_dismiss" data-dismiss="modal" style="margin-right: 40px;">
+                              Fermer
+                         </button>
+                    </div>
+               </div>
+          </div>
+          <!-- End Main-container-->
+     </div>
      </div>
 </body>
 <script type="text/javascript" src="/static/js/jquery/jquery-3.3.1.min.js"></script>
