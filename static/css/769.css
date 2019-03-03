@@ -838,6 +838,7 @@ body {
     top: 100px;
     padding: 1em 2em;
     cursor: pointer;
+    width: 0% ! important;
     height: auto;
 
 }
