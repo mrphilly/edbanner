@@ -2,16 +2,20 @@ $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('pay');
     if (myParam != undefined) {
+        $("#loading").modal('toggle')
         var data = {
             'response': 'ok'
         }
+
         $.ajax({
             type: "POST",
             url: "/ads",
             datatype: "json",
             contentType: 'application/json',
             success: function (response) {
-                console.log(response)
+                $("#loading").modal('toggle')
+                $("#ignismyModal").modal('toggle')
+
 
             },
 
@@ -58,6 +62,15 @@ function onReady(callback) {
             callback.call(this);
         }
     }, 2500);
+}
+
+function onReady1(callback) {
+    var intervalId = window.setInterval(function () {
+        if (document.getElementsByTagName('body')[0] !== undefined) {
+            window.clearInterval(intervalId);
+            callback.call(this);
+        }
+    }, 10000);
 }
 
 function setVisible(selector, visible) {
