@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for,send_from_directory, jsonify
+from flask import Flask, render_template, request, session, redirect, url_for,send_from_directory, jsonify
 import sys
 import json
 import cgi
@@ -10,8 +10,13 @@ from werkzeug.exceptions import RequestEntityTooLarge
 import base64
 from io import BytesIO
 from PIL import Image
+import requests
+import time
+import execjs
+from requests.exceptions import MissingSchema
 
 app = Flask(__name__,  template_folder='edbanner')
+app.secret_key = "1234@Zerty"
 UPLOAD_FOLDER = 'uploads/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -28,25 +33,23 @@ def main():
 
 @app.route('/upload', methods=['POST','GET'])
 def upload():
-     if request.method == 'POST':
+    if request.method == 'POST':
         _result = request.form.to_dict()
         file = _result['input-image']
         description = _result['input-desc']
         prix = _result['input-prix']
         tel = _result['input-tel']
-        print(description)
-        print(prix)
-        print(tel)
         starter = file.find(',')
         image_data = file[starter+1:]
         image_data = bytes(image_data, encoding="ascii")
         im = Image.open(BytesIO(base64.b64decode(image_data)))
         print(im.save('uploads/image.png'))
         url = url_for('uploaded_file', filename='image.png', _external=True)
-        adwords_client = adwords.AdWordsClient.LoadFromStorage()
-        print(ads.ads(adwords_client, NUMBER_OF_CAMPAIGNS_TO_ADD, NUMBER_OF_ADGROUPS_TO_ADD,NUMBER_OF_KEYWORDS_TO_ADD, url, description, prix, tel))
 
-     return  render_template("index.html")
+    adwords_client = adwords.AdWordsClient.LoadFromStorage()
+    print(ads.ads(adwords_client, NUMBER_OF_CAMPAIGNS_TO_ADD, NUMBER_OF_ADGROUPS_TO_ADD,NUMBER_OF_KEYWORDS_TO_ADD, url, description, prix, tel))
+
+    return  main()
 
 
 
@@ -103,5 +106,89 @@ def upload_file():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+
+
+@app.route('/pay',  methods=['POST'])
+def pay():
+        """
+        Get payexpress token
+        """
+        req = ""
+
+        url = 'https://payexpresse.com/api/payment/request-payment'
+        cancel_url = "http://0.0.0.0:5009"
+        success_url = "http://0.0.0.0:5009?pay=ok"
+
+        amount_due = round(2000)
+
+        infos = {
+            'item_name':'Mon achat',
+            'item_price':amount_due,
+            'currency':'XOF',
+            'ref_command':time.time(),
+            'command_name':'Mon achat',
+            'env':'test',
+            'success_url':success_url,
+            'cancel_url':cancel_url
+        }
+
+        headers = {
+            'content-type': 'application/x-www-form-urlencoded',
+            'API_KEY':"3e379206e070968fa5cb0f63c5ef1a4cb3a988f037cbe5af6f456d124af0b819",
+            'API_SECRET':"f3a6c5f015ea7352fd067d4fd0fbcc2c106f89c9f3858af890f6d25aa75ffbae",
+        }
+
+        req = requests.post(url, data=infos, headers=headers)
+
+        req = req.json()
+        print(req)
+        req['redirect_url'] = 'https://payexpresse.com/payment/checkout/' +req['token']
+
+
+
+        return jsonify(req)
+
+@app.route("/ads", methods=["POST"])
+def makeAds():
+    status = request.json['response']
+    if status =='ok':
+        try:
+            print(status)
+            adwords_client = adwords.AdWordsClient.LoadFromStorage()
+            print(ads.ads(adwords_client, NUMBER_OF_CAMPAIGNS_TO_ADD, NUMBER_OF_ADGROUPS_TO_ADD,NUMBER_OF_KEYWORDS_TO_ADD, session['img'], session['description'], session['prix'], session['telephone']))
+        except MissingSchema:
+            main()
+        session['description'] = ""
+        session['img'] = ""
+        session['prix'] = ""
+        session['telephone'] = ""
+
+
+    return "ok"
+
+
+@app.route("/session", methods=["POST"])
+def session_save():
+    result = request
+    file = result.json['img']
+    session['description'] = result.json['description']
+    session['prix'] = result.json["prix"]
+    session["telephone"] = result.json["tel"]
+    print(result.json['tel'])
+    starter = file.find(',')
+    image_data = file[starter+1:]
+    image_data = bytes(image_data, encoding="ascii")
+    im = Image.open(BytesIO(base64.b64decode(image_data)))
+    print(im.save('uploads/image.png'))
+    url = url_for('uploaded_file', filename='image.png', _external=True)
+    session['img'] = url
+
+
+    return "ok"
+
+
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5009)
+

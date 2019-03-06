@@ -19,14 +19,18 @@ $(".prev").on("click", {
 function rotate(e) {
      if (e.data.d == "n") {
           currdeg = currdeg - 60;
-          console.log(currdeg)
           if (currdeg == -60) {
                $(".next, .prev").show()
+               $(".a").hide()
           } else if (currdeg == -120) {
                $('.next').hide()
                $('.prev').show()
+               $(".b").hide()
+               $('.c').show()
           } else if (currdeg == -180) {
                $('.prev').show()
+               $(".c").hide()
+               $('.d').show()
           }
      }
      if (e.data.d == "p") {
@@ -35,8 +39,15 @@ function rotate(e) {
           if (currdeg == 0) {
                $('.prev').hide()
                $('.next').show()
+               $(".b").hide()
+               $('.a').show()
           } else if (currdeg == -60) {
                $('.next, .prev').show()
+               $(".c").hide()
+               $(".b").show()
+          } else if (currdeg == -120) {
+               $('.d').hide()
+               $(".c").show()
           }
      }
      carousel.css({

@@ -1,4 +1,26 @@
 $(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('pay');
+    if (myParam != undefined) {
+        var data = {
+            'response': 'ok'
+        }
+        $.ajax({
+            type: "POST",
+            url: "/ads",
+            datatype: "json",
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response)
+
+            },
+
+            data: JSON.stringify(data),
+        });
+
+    } else {
+        console.log('impayé')
+    }
     $('.b, .c, .d').hide();
     $('.next, .prev').hide();
     $('.next').on("click", function () {
@@ -169,7 +191,7 @@ var takeScreenShotAdwords = function () {
     var infos_desc = $("#infos-desc");
     var infos_prix = $("#infos-prix");
     var infos_tel = $("#infos-tel")
-
+    var ADS = {}
     console.log(description.val())
     html2canvas(document.querySelector(".figure"), {
         onrendered: function (canvas) {
@@ -183,15 +205,22 @@ var takeScreenShotAdwords = function () {
             infos_desc.text(description.val())
             infos_prix.text(prix.val())
             infos_tel.text(tel.val())
-            $('#input-image').val(tempcanvas.toDataURL('image/jpg'))
-            $('#desc').val(description.val())
-            $('#price').val(prix.val() + " CFA")
-            $('#telephone').val(tel.val())
+            var img = tempcanvas.toDataURL("image/jpg")
+            var desc = description.val()
+            var price = prix.val()
+            var telephone = tel.val()
+            //$('#input-image').val(tempcanvas.toDataURL('image/jpg'))
+            //$('#desc').val(description.val())
+            //$('#price').val(prix.val() + " CFA")
+            //$('#telephone').val(tel.val())
+
 
 
         }
+
     });
 }
+
 var takeScreenShotFacebook = function () {
 
 }
@@ -286,7 +315,7 @@ function addImage() {
             context_AR.drawImage(image_AR, AR.startX, AR.startY, AR.renderableWidth, AR.renderableHeight);
         }
         $('.next').trigger('click');
-        $('.b, .c').show();
+        $('.b').show();
         $('.next, .prev').show()
 
         $('.carousel').carousel('next')
@@ -381,9 +410,40 @@ function verifyInput() {
     var description = $("#description");
     var prix = $("#prix");
     var tel = $("#tel")
+    var img = ""
     if (description.val() == "" || prix.val() == "" || tel.val() == "") {
         $("#error").show()
     } else {
+        html2canvas(document.querySelector(".figure"), {
+            onrendered: function (canvas) {
+                var tempcanvas = document.createElement('canvas');
+                tempcanvas.width = 600;
+                tempcanvas.height = 314;
+                var context = tempcanvas.getContext('2d');
+                var AR = calculateAspectRatio(canvas, tempcanvas);
+                context.drawImage(canvas, AR.startX, AR.startY, AR.renderableWidth, AR.renderableHeight);
+                img = tempcanvas.toDataURL("image/jpg")
+                var data = {
+                    'description': description.val(),
+                    'prix': prix.val(),
+                    'tel': tel.val(),
+                    'img': img
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/session",
+                    datatype: "json",
+                    contentType: 'application/json',
+                    success: function (response) {
+                        console.log(response)
+
+                    },
+
+                    data: JSON.stringify(data),
+                });
+            }
+
+        });
 
         $('.carousel').carousel('next');
         $('.next').trigger('click');
@@ -484,12 +544,12 @@ function publishOnAdwords() {
         'description': description.val(),
         'prix': prix.val(),
         'tel': tel.val(),
-        'img': img.attr('src')
+        'img': ""
     }
-    console.log(data)
-    $.ajax({
+
+    console.log($.ajax({
         type: "POST",
-        url: "/upload",
+        url: "/session",
         datatype: "json",
         contentType: 'application/json',
         success: function (response) {
@@ -497,6 +557,83 @@ function publishOnAdwords() {
             alert(response.message);
             alert(response.keys);
         },
+        error: function (error) {
+            console.log(error);
+        },
         data: data,
-    });
+    }))
+}
+
+
+
+
+
+function buy(btn) {
+    setTimeout(function () {
+        $("#visualiser2").modal('toggle')
+        var selector = pQuery(btn);
+        (new PayExpresse({
+            item_id: 1,
+        })).withOption({
+            requestTokenUrl: '/pay',
+            method: 'POST',
+            headers: {
+                "Accept": "application/json"
+            },
+            //prensentationMode   :   PayExpresse.OPEN_IN_POPUP,
+            prensentationMode: PayExpresse.OPEN_IN_POPUP,
+            didPopupClosed: function (is_completed, success_url, cancel_url) {
+                if (is_completed === true) {
+
+                    window.location.href = success_url;
+                } else {
+                    window.location.href = cancel_url
+                }
+            },
+            willGetToken: function () {
+                console.log("Je me prepare a obtenir un token");
+                selector.prop('disabled', true);
+                //var ads = []
+
+
+            },
+            didGetToken: function (token, redirectUrl) {
+                console.log("Mon token est : " + token + ' et url est ' + redirectUrl);
+                selector.prop('disabled', false);
+            },
+            didReceiveError: function (error) {
+                alert('erreur inconnu', error.toString());
+                selector.prop('disabled', false);
+            },
+            didReceiveNonSuccessResponse: function (jsonResponse) {
+                console.log('non success response ', jsonResponse);
+                alert(jsonResponse.errors);
+                selector.prop('disabled', false);
+            }
+        }).send({
+            pageBackgroundRadianStart: '#0178bc',
+            pageBackgroundRadianEnd: '#00bdda',
+            pageTextPrimaryColor: '#333',
+            paymentFormBackground: '#fff',
+            navControlNextBackgroundRadianStart: '#608d93',
+            navControlNextBackgroundRadianEnd: '#28314e',
+            navControlCancelBackgroundRadianStar: '#28314e',
+            navControlCancelBackgroundRadianEnd: '#608d93',
+            navControlTextColor: '#fff',
+            paymentListItemTextColor: '#555',
+            paymentListItemSelectedBackground: '#eee',
+            commingIconBackgroundRadianStart: '#0178bc',
+            commingIconBackgroundRadianEnd: '#00bdda',
+            commingIconTextColor: '#fff',
+            formInputBackgroundColor: '#eff1f2',
+            formInputBorderTopColor: '#e3e7eb',
+            formInputBorderLeftColor: '#7c7c7c',
+            totalIconBackgroundRadianStart: '#0178bc',
+            totalIconBackgroundRadianEnd: '#00bdda',
+            formLabelTextColor: '#292b2c',
+            alertDialogTextColor: '#333',
+            alertDialogConfirmButtonBackgroundColor: '#0178bc',
+            alertDialogConfirmButtonTextColor: '#fff'
+        });
+    }, 500)
 }

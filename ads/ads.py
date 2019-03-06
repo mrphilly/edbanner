@@ -6,6 +6,7 @@ import requests
 from googleads import adwords
 from requests_html import HTMLSession
 from googleads.errors import GoogleAdsServerFault
+from googleads import errors
 
 MAX_POLL_ATTEMPTS = 5
 PENDING_STATUSES = ('ACTIVE', 'AWAITING_FILE', 'CANCELING')
@@ -62,6 +63,7 @@ def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url
         print("start")
         AgId = AdGroupId(client, campagne)
         print(AgId)
+
 
 
 
@@ -162,7 +164,7 @@ def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url
 
       budget_operations = BuildBudgetOperations(batch_job_helper)
       campaign_operations = BuildCampaignOperations(
-        batch_job_helper, budget_operations, telephone, number_of_campaigns)
+        client, batch_job_helper, budget_operations, telephone, number_of_campaigns)
       campaign_criterion_operations = BuildCampaignCriterionOperations(
         campaign_operations)
       adgroup_operations = BuildAdGroupOperations(
@@ -180,6 +182,8 @@ def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url
       download_url = GetBatchJobDownloadUrlWhenReady(client, batch_job_id)
       response = urlopen(download_url).read()
       PrintResponse(batch_job_helper, response)
+      campagne = getCampaign(client, telephone)
+      addNumber(client, campagne, telephone)
 
 
 
@@ -233,7 +237,7 @@ def BuildAdGroupAdOperations(adgroup_operations, client, url, description, prix,
       'descriptions': [{
           'asset': {
               'xsi_type': 'TextAsset',
-              'assetText': 'Prix: '+prix+'  Contact: '+telephone
+              'assetText': 'Prix: '+prix
           }
 
       }],
@@ -527,12 +531,40 @@ def AdGroupId(client, campagne__id):
 
       return result
 
+def addNumber(client, campagne__id, telephone):
+  campaign_extension_setting_service = client.GetService(
+      'CampaignExtensionSettingService', version='v201806')
+  call_feed_item = {
+    'xsi_type': 'CallFeedItem',
+    'callCountryCode': 'SN',
+    'callPhoneNumber': telephone
+  }
+
+  campaign_extension_setting = {
+    'campaignId': campagne__id,
+    'extensionType': 'CALL',
+    'extensionSetting': {
+        'extensions': [call_feed_item]
+    }
+  }
+
+  operation = {
+      'operator': 'ADD',
+      'operand': campaign_extension_setting
+  }
+  response = campaign_extension_setting_service.mutate([operation])
+  if 'value' in response:
+    print ('Extension setting with type "%s" was added to campaignId "%d".' %
+           (response['value'][0]['extensionType'],
+            response['value'][0]['campaignId']))
+  else:
+    raise errors.GoogleAdsError('No extension settings were added.')
 
 
 
 
 
-def BuildCampaignOperations(batch_job_helper,
+def BuildCampaignOperations(client, batch_job_helper,
                             budget_operations, telephone, number_of_campaigns=1):
   """Builds the operations needed to create a new Campaign.
   Note: When the Campaigns are created, they will have a different Id than those
@@ -549,6 +581,11 @@ def BuildCampaignOperations(batch_job_helper,
   """
   # Grab the temporary budgetId to associate with the new Campaigns.
   budget_id = budget_operations[0]['operand']['budgetId']
+  call_feed_item = {
+    'xsi_type': 'CallFeedItem',
+    'callCountryCode': 'SN',
+    'callPhoneNumber': telephone
+  }
 
   campaign_operations = [
       {
@@ -574,11 +611,12 @@ def BuildCampaignOperations(batch_job_helper,
               },
               'biddingStrategyConfiguration': {
                   'biddingStrategyType': 'MANUAL_CPC'
-              }
+              },
           },
           'operator': 'ADD'
       }
       for _ in range(number_of_campaigns)]
+
 
   return campaign_operations
 

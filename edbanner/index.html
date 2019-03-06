@@ -78,7 +78,7 @@
                                         <p id="error" style="color: red; font-size: 14px;">Veuillez remplir tous les
                                              champs
                                              svp !</p>
-                                        <form role="form" class="form-infos">
+                                        <form role="form" class="form-infos" action="">
                                              <div class="form-group">
 
                                                   <input type="text" class="form-control field" id="description"
@@ -123,8 +123,8 @@
                                              </div>
                                              <div class="row" style="width: 2700px">
                                                   <button class="btn btn-secondary btn_download btn_download2 " type="button"
-                                                       onclick="takeScreenShotAdwords()" data-toggle="modal"
-                                                       data-target="#visualiser2" id="download">
+                                                       onclick="takeScreenShotAdwords()" id="download" data-toggle="modal"
+                                                       data-target="#visualiser2">
                                                        <div class="row" style="width: 300px">
                                                             <p id="p2">Votre bannière chez nous et adwords</p>
                                                        </div>
@@ -200,6 +200,12 @@
           </div>
           <!-- End Main-container-->
      </div>
+     <button class="btn btn-secondary btn_download btn_download2 adwords" style="visibility: hidden;" type="button"
+          onclick="" id="download" data-toggle="modal" data-target="#visualiser2">
+          <div class="row" style="width: 300px">
+               <p id="p2">Votre bannière chez nous et adwords</p>
+          </div>
+     </button>
      <div class="modal fade" id="visualiser2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
                <div class="modal-content">
@@ -214,31 +220,31 @@
                     <div class="modal-body">
                          <div class="row">
                               <div class="col">
-                                   <form action="/upload" method="POST">
-                                        <img src="#" id="final-img-adwords" alt="final-image" style="margin-left: -150px"
-                                             name='image' />
-                                        <input type="text" name='input-image' id="input-image" style="visibility: hidden" />
+
+                                   <img src="#" id="final-img-adwords" alt="final-image" style="margin-left: -150px"
+                                        name='image' />
+                                   <!--<input type="text" name='input-image' id="input-image" style="visibility: hidden" />
                                         <input type="text" name='input-desc' id="desc" style="visibility: hidden" />
                                         <input type="text" name='input-prix' id="price" style="visibility: hidden" />
-                                        <input type="text" name='input-tel' id="telephone" style="visibility: hidden" />
-                                        <div class="infos">
-                                             <div class="row">
-                                                  <p id="label">Description: </p>
-                                                  <p id="infos-desc"></p>
-                                             </div>
-                                             <div class="row">
-                                                  <p id="label">Prix: </p>
-                                                  <p id="infos-prix"></p>
-                                             </div>
-                                             <div class="row">
-                                                  <p id="label">Téléphone: </p>
-                                                  <p id="infos-tel"></p>
-                                             </div>
+                                        <input type="text" name='input-tel' id="telephone" style="visibility: hidden" />-->
+                                   <div class="infos">
+                                        <div class="row">
+                                             <p id="label">Description: </p>
+                                             <p id="infos-desc"></p>
                                         </div>
-                                        <button class="btn btn-success" type="submit" onclick="" id="down1">
-                                             <i class="material-icons" id="">&#xe884;</i>Publier
-                                        </button>
-                                   </form>
+                                        <div class="row">
+                                             <p id="label">Prix: </p>
+                                             <p id="infos-prix"></p>
+                                        </div>
+                                        <div class="row">
+                                             <p id="label">Téléphone: </p>
+                                             <p id="infos-tel"></p>
+                                        </div>
+                                   </div>
+                                   <button class="btn btn-success" type="button" onclick="buy(this)" id="down1">
+                                        <i class="material-icons" id="">&#xe884;</i>Publier
+                                   </button>
+
                               </div>
                          </div>
                     </div>
@@ -258,6 +264,8 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.payexpresse.com/v1/payexpresse.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>
 <script src="/static/js/jquery/index.js"></script>
 <script src="/static/js/jquery/3D.js"></script>
