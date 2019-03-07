@@ -484,7 +484,7 @@ function verifyInput() {
     var img = ""
     if (description.val() == "" || prix.val() == "" || tel.val() == "" || isNaN(prix.val())) {
         $("#error").show()
-    } else if (tel.val().startsWith("77") || tel.val().startsWith("78") || tel.val().startsWith("70") || tel.val().startsWith("76") || isNaN(tel.val()) || tel.val().length < 9) {
+    } else if (tel.val().startsWith("77") || tel.val().startsWith("78") || tel.val().startsWith("70") || tel.val().startsWith("76") || isNaN(tel.val()) || tel.val().length == 9) {
         html2canvas(document.querySelector(".figure"), {
             onrendered: function (canvas) {
                 var tempcanvas = document.createElement('canvas');
