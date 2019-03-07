@@ -50,6 +50,7 @@ $(document).ready(function () {
     })
 
     $('#error').hide();
+    $('#phone-error').hide();
 
 
 
@@ -250,39 +251,78 @@ function telecharger() {
 function addLogo() {
     var figure = $('.figure')
 
+    var logo = $(".logo-image")
+    console.log(logo)
     var file = document.querySelector('#logo-insert').files[0]; //sames as here
     var reader = new FileReader();
-    var canvas_AR = document.createElement('canvas');
-    var div = document.createElement('div')
-    div.setAttribute("class", "card-img-top logo-image drag")
-    div.setAttribute("onmousedown", "showBorder()")
-    div.setAttribute("onmouseup", "removeBorder()")
-    div.style.width = '50px';
-    div.style.height = '50px';
-    canvas_AR.width = 50;
-    canvas_AR.height = 50;
-    div.append(canvas_AR)
-    figure.append(div);
-    var context_AR = canvas_AR.getContext('2d');
-    reader.onloadend = function () {
-        var image_AR = new Image();
-        image_AR.onload = function () {
-            var AR = calculateAspectRatio(image_AR, canvas_AR);
-            context_AR.drawImage(image_AR, AR.startX, AR.startY, AR.renderableWidth, AR.renderableHeight);
+    if (logo != null) {
+        logo.remove()
+        var canvas_AR = document.createElement('canvas');
+        var div = document.createElement('div')
+        div.setAttribute("class", "card-img-top logo-image drag")
+        div.setAttribute("onmousedown", "showBorder()")
+        div.setAttribute("onmouseup", "removeBorder()")
+        div.style.width = '50px';
+        div.style.height = '50px';
+        canvas_AR.width = 50;
+        canvas_AR.height = 50;
+        div.append(canvas_AR)
+        figure.append(div);
+        var context_AR = canvas_AR.getContext('2d');
+        reader.onloadend = function () {
+            var image_AR = new Image();
+            image_AR.onload = function () {
+                var AR = calculateAspectRatio(image_AR, canvas_AR);
+                context_AR.drawImage(image_AR, AR.startX, AR.startY, AR.renderableWidth, AR.renderableHeight);
+            }
+            image_AR.src = reader.result;
+
+            $('.next').trigger('click')
+            $('.carousel').carousel('next')
+            $('.next').hide()
+
         }
-        image_AR.src = reader.result;
 
-        $('.next').trigger('click')
-        $('.carousel').carousel('next')
-        $('.next').hide()
-
-    }
-
-    if (file) {
-        reader.readAsDataURL(file); //reads the data as a URL
+        if (file) {
+            reader.readAsDataURL(file); //reads the data as a URL
+        } else {
+            logo.attr("src", "");
+        }
     } else {
-        logo.attr("src", "");
+
+        var canvas_AR = document.createElement('canvas');
+        var div = document.createElement('div')
+        div.setAttribute("class", "card-img-top logo-image drag")
+        div.setAttribute("onmousedown", "showBorder()")
+        div.setAttribute("onmouseup", "removeBorder()")
+        div.style.width = '50px';
+        div.style.height = '50px';
+        canvas_AR.width = 50;
+        canvas_AR.height = 50;
+        div.append(canvas_AR)
+        figure.append(div);
+        var context_AR = canvas_AR.getContext('2d');
+        reader.onloadend = function () {
+            var image_AR = new Image();
+            image_AR.onload = function () {
+                var AR = calculateAspectRatio(image_AR, canvas_AR);
+                context_AR.drawImage(image_AR, AR.startX, AR.startY, AR.renderableWidth, AR.renderableHeight);
+            }
+            image_AR.src = reader.result;
+
+            $('.next').trigger('click')
+            $('.carousel').carousel('next')
+            $('.next').hide()
+
+        }
+
+        if (file) {
+            reader.readAsDataURL(file); //reads the data as a URL
+        } else {
+            logo.attr("src", "");
+        }
     }
+
 }
 
 
@@ -309,7 +349,7 @@ function addImage() {
     div.height = 250;
     canvas_AR.width = 250;
     canvas_AR.height = 250;
-    if (banner != null) {
+    if (banner != undefined) {
         banner.remove()
         div.append(canvas_AR)
         fi.append(div)
@@ -347,10 +387,16 @@ function addImage() {
 
 function hideError() {
     var error = document.getElementById("error")
+    var _error = document.getElementById("phone-error")
 
     if (error != null) {
         if (error.style.display == "block") {
             error.style.display = "none";
+        }
+    }
+    if (_error != null) {
+        if (_error.style.display == "block") {
+            _error.style.display = "none";
         }
     }
 }
@@ -365,6 +411,7 @@ function setDescription() {
 
     } else {
         $(".desc").css("background-color", "white")
+        $(".description-section").css("border", "none")
         $(".desc").text(str);
 
     }
@@ -383,9 +430,20 @@ function setPrix() {
 }
 
 function setTel() {
+    hideError()
     var str = $("#tel").val();
-    hideError();
-    $(".num").text(str);
+    var html = $("<i class='material-icons ic' id=''>&#xe0cd;</i><span class='num'></span>")
+    var target = $(".label-tel")
+    var ic = document.querySelector(".ic")
+    if (ic == undefined) {
+        target.append(html)
+        $(".num").text(str);
+
+    } else {
+        $(".num").text(str);
+
+    }
+
 }
 
 function showBorder() {
@@ -424,9 +482,9 @@ function verifyInput() {
     var prix = $("#prix");
     var tel = $("#tel")
     var img = ""
-    if (description.val() == "" || prix.val() == "" || tel.val() == "") {
+    if (description.val() == "" || prix.val() == "" || tel.val() == "" || isNaN(prix.val())) {
         $("#error").show()
-    } else {
+    } else if (tel.val().startsWith("77") || tel.val().startsWith("78") || tel.val().startsWith("70") || tel.val().startsWith("76") || isNaN(tel.val()) || tel.val().length < 9) {
         html2canvas(document.querySelector(".figure"), {
             onrendered: function (canvas) {
                 var tempcanvas = document.createElement('canvas');
@@ -469,7 +527,11 @@ function verifyInput() {
         });
         $('.next').hide()
         $('.carousel-control-next').css("display", "none");
+
+    } else {
+        $("#phone-error").show()
     }
+
 }
 // Set effect from select menu value
 

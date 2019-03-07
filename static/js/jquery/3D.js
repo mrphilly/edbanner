@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-     var cont = $("<div class='card border border-primary'><div class='card-image'><figure class='figure superposition' id='droppable' style=' '></figure></div><!-- Card Body start--><div class='card-body' style='border-radius: 5px'><div class='row description-section'><p class='card-text label-titre desc' style='background-color: grey'></p></div><div class='row prix-section'><div class='col-6 alignement'><div class='row'><p class='card-text label-prix price alignement'></p></div></div><div class='col-6 alignement'><div class='row' style='margin-left: 10px'><p class='card-text label-tel alignement tel'><i class='material-icons' id=''>&#xe0cd;</i><span class='num'></span></p></div></div></div></div><!-- Card Body end--></div>")
+     var cont = $("<div class='card'><div class='card-image'><figure class='figure superposition' id='droppable' style=' '></figure></div><!-- Card Body start--><div class='card-body' style='border-radius: 5px'><div class='row description-section'><p class='card-text label-titre desc' style=''></p></div><div class='row prix-section'><div class='col-6 alignement'><div class='row'><p class='card-text label-prix price alignement'></p></div></div><div class='col-6 alignement'><div class='row' style='margin-left: 10px'><p class='card-text label-tel alignement tel'></p></div></div></div></div><!-- Card Body end--></div>")
 
      var avt = $(".atvImg-shine")
      avt.append(cont)

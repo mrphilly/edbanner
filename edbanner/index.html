@@ -24,6 +24,7 @@
 <body background="img/background.png">
      <div class="lds-hourglass">
 
+          <h6 style="color: #09548a">Chargement...</h6>
      </div>
      <div class="container page">
           <div>
@@ -75,9 +76,10 @@
                                    </div>
                                    <div class="item c">
                                         <img src="/static/img/desc.jpg" class="img-photo img-desc">
-                                        <p id="error" style="color: red; font-size: 14px;">Veuillez remplir tous les
-                                             champs
-                                             svp !</p>
+                                        <p id="error" style="color: red; font-size: 12px; position: absolute; display: block;
+                                             margin-top: -120px; margin-left: 20px; height: 0px;">Veuillez
+                                             remplir tous les champs svp !</p>
+
                                         <form role="form" class="form-infos" action="">
                                              <div class="form-group">
 
@@ -95,6 +97,9 @@
                                                   <input type="text" class="form-control field" pattern="\d*" id="tel"
                                                        onkeyup="setTel()" placeholder="exemple: 7712345678" maxlength="9"
                                                        required />
+                                                  <p id="phone-error" style="color: red; font-size: 12px; margin-top: -60px; height: 0px; position: absolute;">Numéro
+                                                       de téléphone
+                                                       invalide</p>
                                              </div>
 
                                              <button class="btn btn-item1 btn3d sauvegarder" type="button" onclick="verifyInput()"
@@ -141,6 +146,7 @@
                                                        </div>
                                                   </button>
                                              </div>
+
                                         </div>
 
                                    </div>
@@ -175,14 +181,14 @@
                               <div class="col">
                                    <div class="row" id="btn-download">
                                         <div class="col">
-                                             <button class="btn btn-outline-primary" id="publier_comparez" type="button"
-                                                  onclick="" style="border-radius: 5px">
+                                             <button class="btn btn-outline-primary button-publier" id="publier_comparez"
+                                                  type="button" onclick="" style="border-radius: 5px">
                                                   <i class="material-icons" id="">&#xe255;</i> Publier
                                              </button>
                                         </div>
                                         <div class="col">
-                                             <button class="btn btn-outline-success" type="button" onclick="telecharger()"
-                                                  id="down">
+                                             <button class="btn btn-outline-success button-publier" type="button"
+                                                  onclick="telecharger()" id="down">
                                                   <i class="material-icons" id="">&#xe884;</i> Télécharger
                                              </button>
                                         </div>
