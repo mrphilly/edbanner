@@ -209,6 +209,8 @@ body {
 
 }
 
+
+
 .btn-item {
     margin-top: 100px
 }
@@ -216,14 +218,27 @@ body {
 .btn-item1 {
     margin-left: 20px;
     margin-top: -200px !important;
-    background-color: #09548a;
-    border-radius: 5px;
-    color: #fff;
+    background-color: white;
+    border-radius: 20px;
+    color: #09548a;
     font-size: 12px;
+    height: 33px;
+    border-color: #09548a;
+}
+
+.btn-logo {
+    margin-left: -120px;
+    margin-top: 120px !important;
+    background-color: white;
+    border-radius: 20px;
+    color: #09548a;
+    font-size: 12px;
+    height: 33px;
+    border-color: #09548a;
 }
 
 #photo-text {
-    color: white;
+    color: #09548a;
 }
 
 .btn-item2 {
@@ -247,13 +262,25 @@ body {
 }
 
 #down1 {
-    border-radius: 5px;
-    margin-top: -5px;
-    margin-left: 100px;
+    margin-top: 45px;
+    margin-left: 0px;
     height: auto;
     width: 130px;
     display: flex;
     position: absolute;
+    background-color: #09548a;
+    border-radius: 20px;
+
+}
+
+#icon-publier {
+    margin-left: -2px;
+    position: absolute;
+}
+
+.sp-replacer {
+    position: absolute;
+    margin-left: -110px !important;
 }
 
 #row1 {
@@ -284,6 +311,23 @@ body {
     height: 620px;
 }
 
+.modal-content1 {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 80%;
+    height: 115px;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: .3rem;
+    outline: 0;
+    margin-left: 30px;
+}
+
 #H5 {
     margin-top: -120px;
     position: absolute;
@@ -310,6 +354,11 @@ body {
 .drag {
     margin-left: 10px;
     margin-top: 10px;
+}
+
+.drag1 {
+    margin-left: -50px;
+    margin-top: 50px;
 }
 
 #mynav {
@@ -343,7 +392,7 @@ body {
 }
 
 .banner-image {
-    position: absolute;
+    position: absolute !important;
     width: 250px;
     height: 250px;
     margin-left: 4px;
@@ -404,7 +453,7 @@ body {
 .btn_download {
     height: 32px;
     border-radius: 20px;
-    background-color: #09548a !important;
+    background-color: white !important;
 }
 
 .btn_download1 {
@@ -520,7 +569,7 @@ body {
     margin-left: 5px
 }
 
-.superposition div:nth-of-type(2) {
+.superposition1 {
     position: absolute;
     left: 75%;
 
@@ -556,7 +605,7 @@ body {
     font-weight: bold;
     font-family: sans-serif;
     margin-top: 25px;
-    margin-left: 0px;
+    margin-left: 85px;
 
 
 
@@ -795,7 +844,7 @@ body {
     position: relative;
     outline: medium none;
     -moz-outline-style: none;
-    border: 0px;
+    /**border: 0px;**/
     margin-right: 10px;
     height: 29px;
     margin-top: 15px;
@@ -811,25 +860,6 @@ body {
     top: 9px;
 }
 
-.btn-primary {
-    box-shadow: 0 0 0 1px #428bca inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #357ebd, 0 8px 0 1px #357ebd, 0 8px 8px 1px #357ebd;
-    background-color: transparent;
-}
-
-.btn-info {
-    box-shadow: 0 0 0 1px #5bc0de inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #46b8da, 0 8px 0 1px rgba(0, 0, 0, 0.4), 0 8px 8px 1px rgba(0, 0, 0, 0.5);
-    background-color: #5bc0de;
-}
-
-.btn-success {
-    box-shadow: 0 0 0 1px #5cb85c inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #4cae4c, 0 8px 0 1px rgba(0, 0, 0, 0.4), 0 8px 8px 1px rgba(0, 0, 0, 0.5);
-    background-color: #5cb85c;
-}
-
-.btn-danger {
-    box-shadow: 0 0 0 1px #c63702 inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #C24032, 0 8px 0 1px rgba(0, 0, 0, 0.4), 0 8px 8px 1px rgba(0, 0, 0, 0.5);
-    background-color: #c63702;
-}
 
 .container2 {
     margin-top: 20px;
@@ -947,9 +977,8 @@ body {
 }
 
 .btn-secondary {
-    color: #fff;
-    background-color: #0D6C0D;
-    border-color: #0D6C0D;
+    color: #09548a;
+    border-color: #09548a;
 }
 
 /*--thank you pop starts here--*/
@@ -1018,6 +1047,7 @@ body {
 .lds-circle {
     display: inline-block;
     transform: translateZ(1px);
+    margin-left: 90px;
 }
 
 .lds-circle>div {
@@ -1050,6 +1080,39 @@ body {
     100% {
         transform: rotateY(3600deg);
     }
+}
+
+.button-publier {
+    border-radius: 20px !important;
+    /* margin-top: -180px !important; */
+    /* position: absolute; */
+    border-color: #09548a;
+    color: #09548a;
+}
+
+#seneweb {
+    width: 25%;
+    margin-top: 0px;
+    position: absolute;
+    margin-left: 240px;
+
+}
+
+#senego {
+    margin-top: 50px;
+    margin-left: 240px;
+    position: absolute;
+    width: 25%;
+}
+
+
+#text-cout {
+    color: #09548a;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 0px;
+    position: absolute;
+    margin-left: 0px;
 }
 
 /*--thank you pop ends here--*/

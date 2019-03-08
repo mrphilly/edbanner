@@ -80,7 +80,7 @@ def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url
         'descriptions': [{
           'asset': {
               'xsi_type': 'TextAsset',
-              'assetText': 'Prix: '+prix+' CFA  Contact: '+telephone
+              'assetText': 'Prix: '+prix+' CFA'
           }
 
          }],
@@ -182,8 +182,8 @@ def ads(client, number_of_campaigns, number_of_adgroups, number_of_keywords, url
       download_url = GetBatchJobDownloadUrlWhenReady(client, batch_job_id)
       response = urlopen(download_url).read()
       PrintResponse(batch_job_helper, response)
-      campagne = getCampaign(client, telephone)
-      addNumber(client, campagne, telephone)
+      #campagne = getCampaign(client, telephone)
+      #addNumber(client, campagne, telephone)
 
 
 

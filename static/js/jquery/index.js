@@ -2,6 +2,7 @@ $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('pay');
     if (myParam != undefined) {
+        $('.page').hide()
         $("#loading").modal('toggle')
         var data = {
             'response': 'ok'
@@ -15,6 +16,7 @@ $(document).ready(function () {
             success: function (response) {
                 $("#loading").modal('toggle')
                 $("#ignismyModal").modal('toggle')
+                $(".page").show()
 
 
             },
@@ -117,6 +119,7 @@ $("#btn").click(() => {
 interact('#droppable').dropzone({
     // only accept elements matching this CSS selector
     accept: '#yes-drop',
+    accept: '.drag1',
     // Require a 75% element overlap for a drop to be possible
     overlap: 0.75,
 
@@ -148,6 +151,24 @@ interact('#droppable').dropzone({
 });
 
 interact('.drag')
+    .draggable({
+        inertia: true,
+        restrict: {
+            restriction: "parent",
+            endOnly: true,
+            elementRect: {
+                top: 0,
+                left: 0,
+                bottom: 1,
+                right: 1
+            }
+        },
+        autoScroll: true,
+        // dragMoveListener from the dragging demo above
+        onmove: dragMoveListener,
+    });
+
+interact('.drag1')
     .draggable({
         inertia: true,
         restrict: {
@@ -204,9 +225,8 @@ var takeScreenShotAdwords = function () {
     var tel = $("#tel")
     var infos_desc = $("#infos-desc");
     var infos_prix = $("#infos-prix");
-    var infos_tel = $("#infos-tel")
+    //var infos_tel = $("#infos-tel")
     var ADS = {}
-    console.log(description.val())
     html2canvas(document.querySelector(".figure"), {
         onrendered: function (canvas) {
             var tempcanvas = document.createElement('canvas');
@@ -218,17 +238,7 @@ var takeScreenShotAdwords = function () {
             $('#final-img-adwords').attr('src', tempcanvas.toDataURL('image/jpg')) //function blocks CORS
             infos_desc.text(description.val())
             infos_prix.text(prix.val())
-            infos_tel.text(tel.val())
-            var img = tempcanvas.toDataURL("image/jpg")
-            var desc = description.val()
-            var price = prix.val()
-            var telephone = tel.val()
-            //$('#input-image').val(tempcanvas.toDataURL('image/jpg'))
-            //$('#desc').val(description.val())
-            //$('#price').val(prix.val() + " CFA")
-            //$('#telephone').val(tel.val())
-
-
+            //infos_tel.text(tel.val())
 
         }
 
@@ -248,9 +258,17 @@ function telecharger() {
     link.click()
 }
 
+function prependEle(parent, child) {
+    parent.insertBefore(child, parent.firstChild);
+};
+//insert child after parent
+function appendEle(parent, child) {
+    parent.parentNode.insertBefore(child, parent.nextSibling);
+};
+
 function addLogo() {
     var figure = $('.figure')
-
+    var parent = document.querySelector(".banner-image")
     var logo = $(".logo-image")
     console.log(logo)
     var file = document.querySelector('#logo-insert').files[0]; //sames as here
@@ -259,7 +277,7 @@ function addLogo() {
         logo.remove()
         var canvas_AR = document.createElement('canvas');
         var div = document.createElement('div')
-        div.setAttribute("class", "card-img-top logo-image drag")
+        div.setAttribute("class", "card-img-top logo-image drag superposition1")
         div.setAttribute("onmousedown", "showBorder()")
         div.setAttribute("onmouseup", "removeBorder()")
         div.style.width = '50px';
@@ -267,7 +285,7 @@ function addLogo() {
         canvas_AR.width = 50;
         canvas_AR.height = 50;
         div.append(canvas_AR)
-        figure.append(div);
+        appendEle(parent, div)
         var context_AR = canvas_AR.getContext('2d');
         reader.onloadend = function () {
             var image_AR = new Image();
@@ -292,7 +310,7 @@ function addLogo() {
 
         var canvas_AR = document.createElement('canvas');
         var div = document.createElement('div')
-        div.setAttribute("class", "card-img-top logo-image drag")
+        div.setAttribute("class", "card-img-top logo-image drag superposition1")
         div.setAttribute("onmousedown", "showBorder()")
         div.setAttribute("onmouseup", "removeBorder()")
         div.style.width = '50px';
@@ -300,7 +318,7 @@ function addLogo() {
         canvas_AR.width = 50;
         canvas_AR.height = 50;
         div.append(canvas_AR)
-        figure.append(div);
+        appendEle(parent, div)
         var context_AR = canvas_AR.getContext('2d');
         reader.onloadend = function () {
             var image_AR = new Image();
@@ -329,17 +347,17 @@ function addLogo() {
 
 
 function addImage() {
+
+
     var preview = document.querySelector('.banner-image'); //selects the query named img
     var file = document.querySelector('#addimage').files[0]; //sames as here
     var reader = new FileReader();
+    var parent = document.querySelector(".figure")
     var figure = document.getElementsByClassName("figure")
-    console.log(figure)
-    var fig = $('.banner-image')
-    fig.remove()
     var fi = $('.figure')
     var banner = $('.banner-image')
+    var banniere = document.querySelector(".banner-image")
 
-    var first_img = document.getElementsByClassName('.banner-image')
 
 
     var canvas_AR = document.createElement('canvas');
@@ -349,13 +367,13 @@ function addImage() {
     div.height = 250;
     canvas_AR.width = 250;
     canvas_AR.height = 250;
-    if (banner != undefined) {
+    if (banniere != null) {
         banner.remove()
         div.append(canvas_AR)
-        fi.append(div)
+        prependEle(parent, div);
     } else {
         div.append(canvas_AR)
-        fi.append(div)
+        prependEle(parent, div);
     }
     var context_AR = canvas_AR.getContext('2d');
 
@@ -435,14 +453,21 @@ function setTel() {
     var html = $("<i class='material-icons ic' id=''>&#xe0cd;</i><span class='num'></span>")
     var target = $(".label-tel")
     var ic = document.querySelector(".ic")
-    if (ic == undefined) {
+    console.log(ic)
+    var figure = $('.figure')
+    var div = $("<div class='drag1' style='width: 130px; position: absolute;'  onmouseup = 'removeBorder1()' onmousedown = 'showBorder1()'><i class='material-icons ic' style='position: absolute' id='ic-num'>&#xe0cd;</i><span class='num' style='word-wrap: normal; margin-left: 25px;' id='num'></span></div>")
+    if (ic == null) {
         target.append(html)
+        figure.append(div)
         $(".num").text(str);
-
     } else {
+        //figure.append(div)
         $(".num").text(str);
 
     }
+
+
+
 
 }
 
@@ -450,8 +475,16 @@ function showBorder() {
     $('.drag').addClass("border border-secondary")
 }
 
+function showBorder1() {
+    $('.drag1').addClass("border border-secondary")
+}
+
 function removeBorder() {
     $('.drag').removeClass('border border-secondary')
+}
+
+function removeBorder1() {
+    $('.drag1').removeClass('border border-secondary')
 }
 
 function triggerImage() {
