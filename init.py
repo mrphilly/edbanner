@@ -116,10 +116,10 @@ def pay():
         req = ""
 
         url = 'https://payexpresse.com/api/payment/request-payment'
-        #cancel_url = "http://banner.comparez.co"
-        #success_url = "http://banner.comparez.co/?pay=ok"
-        cancel_url = "http://0.0.0.0:5009"
-        success_url = "http://0.0.0.0:5009/?pay=ok"
+        cancel_url = "http://banner.comparez.co"
+        success_url = "http://banner.comparez.co/?pay=ok"
+        #cancel_url = "http://0.0.0.0:5009"
+        #success_url = "http://0.0.0.0:5009/?pay=ok"
 
         amount_due = round(2000)
 
