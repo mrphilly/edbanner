@@ -8,13 +8,8 @@ body {
 }
 
 body {
-    background: white;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, white, white);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, white, white);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    /*font-family: 'Dancing Script', cursive;*/
+    background: white !important;
+
 }
 
 .img-photo {
@@ -164,7 +159,7 @@ body {
 }
 
 .principal {
-    background-color: #38eff2;
+    background-color: white;
     width: 100%;
     position: absolute;
     top: 10px;
