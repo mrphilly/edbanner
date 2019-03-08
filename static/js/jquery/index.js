@@ -453,12 +453,32 @@ function setTel() {
     var html = $("<i class='material-icons ic' id=''>&#xe0cd;</i><span class='num'></span>")
     var target = $(".label-tel")
     var ic = document.querySelector(".ic")
-    console.log(ic)
-    var figure = $('.figure')
-    var div = $("<div class='drag1' style='width: 130px; position: absolute;'  onmouseup = 'removeBorder1()' onmousedown = 'showBorder1()'><i class='material-icons ic' style='position: absolute' id='ic-num'>&#xe0cd;</i><span class='num' style='word-wrap: normal; margin-left: 25px;' id='num'></span></div>")
+    //console.log(ic)
+    var parent = document.querySelector('.banner-image')
+    var second_parent = document.querySelector('.logo-image')
+
+
+    //var div = $("<div class='drag1' style='width: 130px; position: absolute;'  onmouseup = 'removeBorder1()' onmousedown = 'showBorder1()'><i class='material-icons ic' style='position: absolute' id='ic-num'>&#xe0cd;</i><span class='num' style='word-wrap: normal; margin-left: 25px;' id='num'></span></div>")
+
     if (ic == null) {
-        target.append(html)
-        figure.append(div)
+        var div = document.createElement("div")
+        div.setAttribute("class", "drag1")
+        div.setAttribute("onmouseup", "removeBorder1()")
+        div.setAttribute("onmousedown", "showBorder1()")
+        //var icon = document.createElement("i")
+        //icon.setAttribute("class", "material-icons")
+        //icon.setAttribute("id", "ic")
+        //icon.text("&#xe0cd;")
+        var num = document.createElement("span")
+        num.setAttribute("class", "num")
+        num.setAttribute("id", "num")
+        div.innerHTML = "<i class='material-icons ic' style='position: absolute' id='ic-num'>&#xe0cd;</i>"
+        div.appendChild(num)
+        if (second_parent == null) {
+            appendEle(parent, div)
+        } else {
+            appendEle(second_parent, div)
+        }
         $(".num").text(str);
     } else {
         //figure.append(div)

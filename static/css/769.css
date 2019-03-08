@@ -332,9 +332,20 @@ body {
     margin-top: 10px;
 }
 
-.dra1 {
-    margin-left: -50px;
+.drag1 {
+    margin-left: 50px;
     margin-top: 50px;
+    width: 130px;
+    position: absolute;
+}
+
+#ic-num {
+    position: absolute
+}
+
+#num {
+    word-wrap: normal;
+    margin-left: 25px;
 }
 
 #mynav {
@@ -343,6 +354,17 @@ body {
     box-align: center;
     background-color: transparent !important
         /*background-color: rgba(10, 1, 1, 0.578) !important;*/
+}
+
+#text-img {
+    color: #09548a;
+    font-size: 14px;
+    word-wrap: break-word;
+    width: 200px;
+    height: 20px;
+    position: absolute;
+    margin-top: -80px;
+    margin-left: -20px;
 }
 
 

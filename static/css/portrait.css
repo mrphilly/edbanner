@@ -354,10 +354,33 @@
         margin-top: 10px;
     }
 
-    .drag1 {
-        margin-left: -50px;
-        margin-top: 50px;
+    #text-img {
+        color: #09548a;
+        font-size: 12px;
+        word-wrap: break-word;
+        width: 200px;
+        height: 20px;
+        position: absolute;
+        margin-top: -30px;
+        margin-left: -83px;
     }
+
+    .drag1 {
+        margin-left: 50px;
+        margin-top: 50px;
+        width: 130px;
+        position: absolute;
+    }
+
+    #ic-num {
+        position: absolute
+    }
+
+    #num {
+        word-wrap: normal;
+        margin-left: 25px;
+    }
+
 
     #mynav {
         position: relative;
