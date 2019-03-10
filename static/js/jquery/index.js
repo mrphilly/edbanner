@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-document.getElementById("field")
+document.getElementsByClassName("field")
     .addEventListener ("keyup", fonction (event) {
     event.preventDefault ();
     if (event.keyCode === 13) {
