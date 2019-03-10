@@ -1,11 +1,11 @@
 $(document).ready(function () {
 
 
-document.getElementsByClassName("field")
-    .addEventListener ("keyup", fonction (event) {
-    event.preventDefault ();
+document.getElementById("tel")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
     if (event.keyCode === 13) {
-        alert("Entrer")
+        alert("click")
     }
 });
     const urlParams = new URLSearchParams(window.location.search);
