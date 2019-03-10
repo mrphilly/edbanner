@@ -5,7 +5,7 @@ document.getElementById("tel")
     .addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode === 13) {
-        alert("click")
+        $('.sauvegarder').trigger("click")
     }
 });
     const urlParams = new URLSearchParams(window.location.search);
@@ -26,8 +26,9 @@ document.getElementById("tel")
             datatype: "json",
             contentType: 'application/json',
             success: function (response) {
-                console.log(response)
+                $("#loading").modal('toggle')
                 if(response=="ok"){
+                    $("#loading").modal('toggle')
                      var notify = $.notify({
             message: '<strong>Ne fermez pas cette page</strong>Initialisation du traitement...',
             type: 'info',
@@ -79,7 +80,7 @@ document.getElementById("tel")
 
 
                 }else{
-                    window.location = "http://0.0.0.0:5009"
+                    window.location = "banner.comparez.co"
                 }
 
             },
