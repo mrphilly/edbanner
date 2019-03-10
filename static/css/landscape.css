@@ -902,7 +902,7 @@ vertical-align: middle;
         width: 250px;
         height: 200px;
         position: relative;
-        perspective: 1000px;
+        /* perspective: 1000px; */
     }
 
     .carousel {
