@@ -1,7 +1,13 @@
 $(document).ready(function () {
 
 
-
+document.getElementById("field")
+    .addEventListener ("keyup", fonction (event) {
+    event.preventDefault ();
+    if (event.keyCode === 13) {
+        alert("Entrer")
+    }
+});
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('pay');
     if (myParam != undefined) {
