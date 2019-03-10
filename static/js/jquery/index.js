@@ -1,12 +1,18 @@
 $(document).ready(function () {
+
+
+
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('pay');
     if (myParam != undefined) {
-        $('.page').hide()
-        $("#loading").modal('toggle')
+
         var data = {
             'response': 'ok'
         }
+
+        $(".lds-hourglass").hide()
+        $(".page").hide()
+
 
         $.ajax({
             type: "POST",
@@ -14,49 +20,126 @@ $(document).ready(function () {
             datatype: "json",
             contentType: 'application/json',
             success: function (response) {
-                $("#loading").modal('toggle')
-                $("#ignismyModal").modal('toggle')
-                $(".page").show()
+                console.log(response)
+                if(response=="ok"){
+                     var notify = $.notify({
+            message: '<strong>Ne fermez pas cette page</strong>Initialisation du traitement...',
+            type: 'info',
+            icon: 'fa fa-spinner',
+            },{
+            allow_dismiss: false,
+            showProgressbar: true,
+            delay: 60000,
+            timer: 1000,
+            placement: {
+                from: "bottom",
+                align: "center"
+            },
+            offset: {
+                x: 150,
+                y: 300
+            },
+            onClose: function () {
 
+                $('#ignismyModal').modal("toggle")
+            },
+        });
+        setTimeout(function () {
+            notify.update({
+                'message': '<strong>Connexion à google...</strong>.',
+
+            });
+        }, 10000);
+        setTimeout(function () {
+
+            notify.update({
+                'message': '<strong>Plus que quelques secondes...</strong>.',
+
+
+            });
+
+
+        }, 15000);
+        setTimeout(function () {
+            notify.update({
+                message: "<strong>Publication de l'annonce</strong> en cours.",
+                icon: 'fa fa-paper-plane',
+            },{
+                'type': 'success',
+            });
+            console.log("1")
+
+        }, 20000);
+
+
+                }else{
+                    window.location = "http://0.0.0.0:5009"
+                }
 
             },
 
             data: JSON.stringify(data),
         });
 
+
+
+
+
+
+
     } else {
-        console.log('impayé')
+
+        $('.b, .c, .d').hide();
+        $('.next, .prev').hide();
+        $('.next').on("click", function () {
+            $('.carousel').carousel('next')
+
+        })
+        $('.prev').on("click", function () {
+            $('.carousel').carousel('prev')
+
+        })
+        onReady(function () {
+
+            setVisible('.page', true);
+            setVisible('.lds-hourglass', false);
+
+        });
+
+        toggleCard();
+        toggleCarousel();
+        $('.carousel').carousel({
+            pause: true,
+            interval: false,
+        })
+
+        $('#error').hide();
+        $('#phone-error').hide();
+        setTimeout(function () {
+            $.notify({
+                message: 'Cliquez sur le bouton <strong>Insérer une image</strong>  pour commencer !',
+                icon: 'fa fa-hand-o-down',
+            }, {
+                delay: 60000,
+                timer: 1000,
+            }, {
+                allow_dismiss: true,
+                showProgressbar: false
+            });
+        }, 3000)
+
+
     }
-    $('.b, .c, .d').hide();
-    $('.next, .prev').hide();
-    $('.next').on("click", function () {
-        $('.carousel').carousel('next')
-
-    })
-    $('.prev').on("click", function () {
-        $('.carousel').carousel('prev')
-
-    })
-    onReady(function () {
-
-        setVisible('.page', true);
-        setVisible('.lds-hourglass', false);
-
-    });
-
-    toggleCard();
-    toggleCarousel();
-    $('.carousel').carousel({
-        pause: true,
-        interval: false,
-    })
-
-    $('#error').hide();
-    $('#phone-error').hide();
-
 
 
 })
+$("#ignismyModal").on("hidden.bs.modal", function () {
+   /*  window.location = "http://0.0.0.0:5009" */
+    window.location = "banner.comparez.co"
+});
+
+
+
 
 function onReady(callback) {
     var intervalId = window.setInterval(function () {
@@ -391,6 +474,21 @@ function addImage() {
 
         $('.carousel').carousel('next')
         $('.carousel').carousel('pause')
+        $.notify({
+            message: "Vous pouvez appuyez sur les flèches pour passer à l'étape suivante",
+            icon: 'fa fa-tags',
+        }, {
+            delay: 10000,
+            timer: 1000,
+            allow_dismiss: true,
+            showProgressbar: false,
+            animate: {
+                enter: 'animated lightSpeedIn',
+                exit: 'animated lightSpeedOut'
+            },
+        }, {
+
+        });
 
     }
 
@@ -455,7 +553,9 @@ function setTel() {
     var ic = document.querySelector(".ic")
     //console.log(ic)
     var parent = document.querySelector('.banner-image')
-    var second_parent = document.querySelector('.logo-image')
+    var second_parent = document.querySelector('.drag')
+
+
 
 
     //var div = $("<div class='drag1' style='width: 130px; position: absolute;'  onmouseup = 'removeBorder1()' onmousedown = 'showBorder1()'><i class='material-icons ic' style='position: absolute' id='ic-num'>&#xe0cd;</i><span class='num' style='word-wrap: normal; margin-left: 25px;' id='num'></span></div>")
@@ -465,21 +565,54 @@ function setTel() {
         div.setAttribute("class", "drag1")
         div.setAttribute("onmouseup", "removeBorder1()")
         div.setAttribute("onmousedown", "showBorder1()")
-        //var icon = document.createElement("i")
-        //icon.setAttribute("class", "material-icons")
-        //icon.setAttribute("id", "ic")
-        //icon.text("&#xe0cd;")
         var num = document.createElement("span")
         num.setAttribute("class", "num")
         num.setAttribute("id", "num")
         div.innerHTML = "<i class='material-icons ic' style='position: absolute' id='ic-num'>&#xe0cd;</i>"
         div.appendChild(num)
-        if (second_parent == null) {
+ if (second_parent == null) {
             appendEle(parent, div)
+            $('.drag1').css({
+                "margin-left": "50px !important"
+            })
+
         } else {
             appendEle(second_parent, div)
+              $('.drag1').css({
+                "margin-left": "50px !important"
+            })
         }
         $(".num").text(str);
+        setTimeout(function () {
+            /*  $.notify({
+                 icon: 'fa fa-hand-o-down',
+                 message: "Cliquez pour commencer !",
+                 offset: {
+                     x: 250,
+                     y: 300
+                 },
+                 delay: 6000000,
+                 timer: 100000
+
+             }); */
+            $.notify({
+                message: "<strong style='color: red; font-size: 14px'>Important </strong>Votre numéro sera affiché sur l'image vous pouvez cliquez dessus pour le déplacer",
+                icon: 'fa fa-info-circle',
+            }, {
+                delay: 600000,
+                timer: 10000,
+            }, {
+                allow_dismiss: true,
+                showProgressbar: false,
+                animate: {
+                    enter: 'animated lightSpeedIn',
+                    exit: 'animated lightSpeedOut'
+                },
+
+            });
+        }, 3000)
+
+
     } else {
         //figure.append(div)
         $(".num").text(str);
@@ -490,6 +623,16 @@ function setTel() {
 
 
 }
+
+
+
+$("#btnSuccess").on("click", function () {
+    $("#someElement").notify("successfully did XYZ", successOptions);
+});
+
+$("#btnError").on("click", function () {
+    $("#someElement").notify("some error occured", errorOptions);
+});
 
 function showBorder() {
     $('.drag').addClass("border border-secondary")

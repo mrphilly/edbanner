@@ -150,9 +150,23 @@
     }
 
 
+    .notify {
+        width: 100%;
+        height: 100%;
+    }
+
+    .box {
+        width: 10vw;
+        height: 10vh;
+        position: fixed;
+        top: 2vh;
+        border: solid 2px;
+    }
+
     .form-infos {
         margin-top: -40px;
         margin-left: 40px;
+        position: absolute;
     }
 
     .btn-milieu {
@@ -338,14 +352,14 @@
     }
 
     #logo {
-        max-width: 100px;
-        position: absolute;
-        left: -70%;
-        margin-left: 470px !important;
-        display: block;
-        height: 5%;
-        margin-top: 1px;
-
+    max-width: 100px;
+    position: absolute;
+    left: -77%;
+    margin-left: 470px !important;
+    display: block;
+    height: auto;
+    margin-top: 1px;
+    width: 24%;
     }
 
 
@@ -696,7 +710,7 @@
     .card__item {
         width: 270px;
         height: 347px;
-        margin-top: -50px;
+        margin-top: -30px;
     }
 
     .atvImg-shadow {
@@ -828,6 +842,7 @@
 
     .carousel-control-prev {
         color: black ! important;
+        height: 5px !important;
     }
 
     .carousel-control-prev {
@@ -840,6 +855,7 @@
     .carousel-control-prev:hover {
         color: black;
         position: absolute;
+        height: 5px !important;
     }
 
     @keyframes lds-ripple {
@@ -883,7 +899,7 @@
 
 
     .container2 {
-        margin-top: 20px;
+        margin-top: 40px;
         margin-left: 50px;
         width: 250px;
         height: 200px;
@@ -967,10 +983,10 @@
 
     .next,
     .prev {
-        top: 350px;
+        top: 380px;
         padding: 1em 2em;
         width: 0% ! important;
-        height: auto;
+        height: 5px !important;
     }
 
 
@@ -979,6 +995,7 @@
     .prev:active {
         top: 104px;
         box-shadow: 0 1px 0 #999;
+        height: 5px !important;
     }
 
     .next {
@@ -987,6 +1004,7 @@
         margin-right: -240px;
         color: black;
         font-size: 40px !important;
+        height: 5px !important;
     }
 
     .prev {
@@ -995,6 +1013,7 @@
         margin-top: 2px;
         font-size: 40px !important;
         color: black;
+        height: 5px !important;
     }
 
     .btn-secondary {

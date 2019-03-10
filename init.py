@@ -153,12 +153,14 @@ def pay():
 @app.route("/ads", methods=["POST"])
 def makeAds():
     status = request.json['response']
+    final = ""
     if status =='ok':
         try:
             print(status)
             adwords_client = adwords.AdWordsClient.LoadFromStorage()
             print(ads.ads(adwords_client, NUMBER_OF_CAMPAIGNS_TO_ADD, NUMBER_OF_ADGROUPS_TO_ADD,NUMBER_OF_KEYWORDS_TO_ADD, session['img'], session['description'], session['prix'], session['telephone']))
-        except MissingSchema:
+            final = "ok"
+        except:
             main()
         session['description'] = ""
         session['img'] = ""
@@ -166,7 +168,7 @@ def makeAds():
         session['telephone'] = ""
 
 
-    return "ok"
+    return final
 
 
 @app.route("/session", methods=["POST"])

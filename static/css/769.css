@@ -42,12 +42,14 @@ body {
 .carousel-control-prev:hover {
     color: black;
     position: absolute;
+    height: 10px !important;
+    width: 0% !important;
 }
 
 .next {
     position: absolute;
     right: 5em;
-    margin-right: -240px;
+    margin-right: -20px;
     color: black;
     font-size: 40px !important;
     width: 0% !important;
@@ -333,11 +335,16 @@ body {
 }
 
 .drag1 {
-    margin-left: 50px;
+     margin-left: 0px;
     margin-top: 50px;
     width: 130px;
     position: absolute;
 }
+
+.notifyjs-container {}
+
+
+
 
 #ic-num {
     position: absolute
