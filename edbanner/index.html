@@ -10,9 +10,10 @@
 
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" id="bootstrap-css">
      <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-     <link rel="stylesheet" href="../static/css/animate.css">
+      <link rel="stylesheet" href="../static/css/animate.css">
      <link rel="stylesheet" media="screen and (min-device-width: 768px)" href="/static/css/769.css" />
-     <link rel="stylesheet" media="screen and (max-device-width: 600px) and (orientation: portrait)" href="/static/css/portrait.css" />
+      <link rel="stylesheet" media="screen and (max-device-width: 680px) and (orientation: portrait)" href="/static/css/portrait.css"/>
+         <link rel="stylesheet" media="screen and (max-device-height: 680px) and (orientation: landscape)" href="/static/css/landscape.css" />
      <link rel="stylesheet" href="../static/css/spectrum.css">
      <link rel="stylesheet" href="../static/css/font-awsome.min.css">
      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -66,9 +67,9 @@
                </div>
 
                <div class="col-md-6">
-                    <input type="file" id="addimage" style="display: inline-block; left: 0; width: 90px; opacity: 0;"
+                    <input type="file" id="addimage" style="display: block; left: 70px; width: 0%; position: absolute; opacity: 0;"
                          onchange="addImage()" />
-                    <input type="file" id="logo-insert" style="position: absolute; left: 0; width: 90px; display: inline-block; opacity: 0;"
+                    <input type="file" id="logo-insert" style="display: block; left: 70px; width: 0%; position: absolute; opacity: 0;"
                          onchange="addLogo()" />
                     <div class="container2">
                          <div class="carousel slide">
@@ -85,7 +86,7 @@
                                    </div>
                                    <div class="item b">
                                         <img src="/static/img/logo1.jpg" class="img-photo">
-                                        <button class="btn btn-item1 btn-logo" type="button" onclick="triggerLogo()">
+                                        <button class="btn btn-item1" type="button" onclick="triggerLogo()">
 
                                              <p id="photo-text f">Insérer un logo</p>
                                         </button>
@@ -175,8 +176,8 @@
                          </div>
                     </div>
                </div>
-               <i class="fa fa-arrow-circle-left carousel-control-prev prev"></i>
-               <i class="fa fa-arrow-circle-right carousel-control-next next"  aria-hidden="true"></i>
+               <i class="material-icons carousel-control-prev prev">&#xe408;</i>
+               <i class="material-icons carousel-control-next next">&#xe409;</i>
 
 
           </div>

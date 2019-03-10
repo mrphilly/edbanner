@@ -16,10 +16,11 @@
     }
 
     .img-photo {
-        vertical-align: middle;
-        border-style: none;
-        height: 97px;
-        margin-top: -85px;
+vertical-align: middle;
+    border-style: none;
+    height: 70px;
+    margin-top: 30px;
+    margin-left: 30px;
     }
 
     .infos {
@@ -164,9 +165,8 @@
     }
 
     .form-infos {
-        margin-top: -40px;
-        margin-left: 40px;
-        position: absolute;
+           margin-top: 0px;
+    margin-left: 43px;
     }
 
     .btn-milieu {
@@ -228,18 +228,18 @@
     }
 
     .btn-item1 {
-        margin-left: 20px;
-        margin-top: -200px !important;
-        background-color: white;
-        border-radius: 20px;
-        color: #09548a;
-        font-size: 12px;
-        height: 33px;
-        border-color: #09548a;
+            margin-left: 0px;
+    margin-top: 35px !important;
+    background-color: white;
+    border-radius: 20px;
+    color: #09548a;
+    font-size: 12px;
+    height: 33px;
+    border-color: #09548a;
     }
 
     .btn-logo {
-        margin-left: -120px;
+        margin-left: -110px;
         margin-top: 120px !important;
         background-color: white;
         border-radius: 20px;
@@ -358,7 +358,7 @@
     margin-left: 470px !important;
     display: block;
     height: auto;
-    margin-top: 1px;
+    margin-top: 12px;
     width: 24%;
     }
 
@@ -710,7 +710,7 @@
     .card__item {
         width: 270px;
         height: 347px;
-        margin-top: -30px;
+        margin-top: 0px;
     }
 
     .atvImg-shadow {
@@ -853,9 +853,7 @@
     .carousel-control-next:hover,
     .carousel-control-prev:focus,
     .carousel-control-prev:hover {
-        color: black;
         position: absolute;
-        height: 5px !important;
     }
 
     @keyframes lds-ripple {
@@ -983,7 +981,7 @@
 
     .next,
     .prev {
-        top: 380px;
+        top: 430px;
         padding: 1em 2em;
         width: 0% ! important;
         height: 5px !important;
@@ -993,9 +991,8 @@
 
     .next:active,
     .prev:active {
-        top: 104px;
         box-shadow: 0 1px 0 #999;
-        height: 5px !important;
+    height: 5px !important;
     }
 
     .next {

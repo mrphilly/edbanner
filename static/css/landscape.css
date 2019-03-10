@@ -1,4 +1,4 @@
-@media (orientation: landscape) {
+
     /* For vertical viewports */
 
     @import url("https://fonts.googleapis.com/css?family=Amaranth|Dancing+Script");
@@ -7,7 +7,7 @@
     body {
         margin: 0;
         padding: 0;
-        height: 100%;
+        height: 100vh;
     }
 
     body {
@@ -16,10 +16,11 @@
     }
 
     .img-photo {
-        vertical-align: middle;
-        border-style: none;
-        height: 97px;
-        margin-top: -85px;
+vertical-align: middle;
+    border-style: none;
+    height: 70px;
+    margin-top: 30px;
+    margin-left: 30px;
     }
 
     .infos {
@@ -150,9 +151,22 @@
     }
 
 
+    .notify {
+        width: 100%;
+        height: 100%;
+    }
+
+    .box {
+        width: 10vw;
+        height: 10vh;
+        position: fixed;
+        top: 2vh;
+        border: solid 2px;
+    }
+
     .form-infos {
-        margin-top: -40px;
-        margin-left: 40px;
+           margin-top: 0px;
+    margin-left: 43px;
     }
 
     .btn-milieu {
@@ -214,18 +228,18 @@
     }
 
     .btn-item1 {
-        margin-left: 20px;
-        margin-top: -200px !important;
-        background-color: white;
-        border-radius: 20px;
-        color: #09548a;
-        font-size: 12px;
-        height: 33px;
-        border-color: #09548a;
+            margin-left: 0px;
+    margin-top: 35px !important;
+    background-color: white;
+    border-radius: 20px;
+    color: #09548a;
+    font-size: 12px;
+    height: 33px;
+    border-color: #09548a;
     }
 
     .btn-logo {
-        margin-left: -120px;
+        margin-left: -110px;
         margin-top: 120px !important;
         background-color: white;
         border-radius: 20px;
@@ -338,14 +352,14 @@
     }
 
     #logo {
-        max-width: 100px;
-        position: absolute;
-        left: -70%;
-        margin-left: 470px !important;
-        display: block;
-        height: 5%;
-        margin-top: 1px;
-
+    max-width: 100px;
+    position: absolute;
+    left: -77%;
+    margin-left: 800px !important;
+    display: block;
+    height: auto;
+    margin-top: 12px;
+    width: 24%;
     }
 
 
@@ -354,10 +368,33 @@
         margin-top: 10px;
     }
 
-    .drag1 {
-        margin-left: -50px;
-        margin-top: 50px;
+    #text-img {
+        color: #09548a;
+        font-size: 12px;
+        word-wrap: break-word;
+        width: 200px;
+        height: 20px;
+        position: absolute;
+        margin-top: -30px;
+        margin-left: -83px;
     }
+
+    .drag1 {
+        margin-left: 50px;
+        margin-top: 50px;
+        width: 130px;
+        position: absolute;
+    }
+
+    #ic-num {
+        position: absolute
+    }
+
+    #num {
+        word-wrap: normal;
+        margin-left: 25px;
+    }
+
 
     #mynav {
         position: relative;
@@ -673,7 +710,7 @@
     .card__item {
         width: 270px;
         height: 347px;
-        margin-top: -50px;
+        margin-top: 0px;
     }
 
     .atvImg-shadow {
@@ -805,6 +842,7 @@
 
     .carousel-control-prev {
         color: black ! important;
+        height: 5px !important;
     }
 
     .carousel-control-prev {
@@ -815,7 +853,6 @@
     .carousel-control-next:hover,
     .carousel-control-prev:focus,
     .carousel-control-prev:hover {
-        color: black;
         position: absolute;
     }
 
@@ -860,7 +897,7 @@
 
 
     .container2 {
-        margin-top: 20px;
+        margin-top: 40px;
         margin-left: 50px;
         width: 250px;
         height: 200px;
@@ -944,18 +981,18 @@
 
     .next,
     .prev {
-        top: 350px;
+        top: 430px;
         padding: 1em 2em;
         width: 0% ! important;
-        height: auto;
+        height: 5px !important;
     }
 
 
 
     .next:active,
     .prev:active {
-        top: 104px;
         box-shadow: 0 1px 0 #999;
+    height: 5px !important;
     }
 
     .next {
@@ -964,6 +1001,7 @@
         margin-right: -240px;
         color: black;
         font-size: 40px !important;
+        height: 5px !important;
     }
 
     .prev {
@@ -972,6 +1010,7 @@
         margin-top: 2px;
         font-size: 40px !important;
         color: black;
+        height: 5px !important;
     }
 
     .btn-secondary {
@@ -1114,4 +1153,3 @@
     }
 
     /*--thank you pop ends here--*/
-}
