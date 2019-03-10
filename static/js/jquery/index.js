@@ -122,6 +122,7 @@ document.getElementById("tel")
 
         $('#error').hide();
         $('#phone-error').hide();
+        $("#error-prix").hide();
         setTimeout(function () {
             $.notify({
                 message: 'Cliquez sur le bouton <strong>Insérer une image</strong>  pour commencer !',
@@ -511,6 +512,7 @@ function addImage() {
 function hideError() {
     var error = document.getElementById("error")
     var _error = document.getElementById("phone-error")
+    var error_prix = document.getElementById("error-prix")
 
     if (error != null) {
         if (error.style.display == "block") {
@@ -518,6 +520,11 @@ function hideError() {
         }
     }
     if (_error != null) {
+        if (_error.style.display == "block") {
+            _error.style.display = "none";
+        }
+    }
+    if (error_prix != null) {
         if (_error.style.display == "block") {
             _error.style.display = "none";
         }
@@ -541,6 +548,8 @@ function setDescription() {
 }
 
 function setPrix() {
+    hideError();
+    $("#error-prix").hide()
     var int3 = new Intl.NumberFormat("fr-FR", {
         maximumFractionDigits: 0
     });
@@ -548,7 +557,6 @@ function setPrix() {
     var conversion = Number(saisie)
     var prix = int3.format(conversion);
     var str = prix.toString() + " CFA";
-    hideError();
     $(".price").text(str);
 }
 
@@ -685,9 +693,13 @@ function verifyInput() {
     var prix = $("#prix");
     var tel = $("#tel")
     var img = ""
-    if (description.val() == "" || prix.val() == "" || tel.val() == "" || isNaN(prix.val())) {
+    if (description.val() == "" || prix.val() == "" || tel.val() == "") {
         $("#error").show()
-    } else if (tel.val().startsWith("77") == true || tel.val().startsWith("78") == true || tel.val().startsWith("70") == true || tel.val().startsWith("76") == true && isNaN(tel.val()) && tel.val().length == 9) {
+
+    }else if(isNaN(prix.val())){
+        $("#error-prix").show()
+
+    }else if (tel.val().startsWith("77") == true || tel.val().startsWith("78") == true || tel.val().startsWith("70") == true || tel.val().startsWith("76") == true && isNaN(tel.val()) == true && tel.val().length == 9) {
         html2canvas(document.querySelector(".figure"), {
             onrendered: function (canvas) {
                 var tempcanvas = document.createElement('canvas');

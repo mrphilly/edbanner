@@ -873,7 +873,14 @@ vertical-align: middle;
             opacity: 0;
         }
     }
+#error-prix{
+     color: red;
+    font-size: 14px;
+    margin-top: -160px;
+    height: 0px;
+    position: absolute;
 
+}
     .btn3d {
         transition: all .08s linear;
         position: relative;

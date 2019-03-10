@@ -660,6 +660,14 @@ body {
     margin-left: -3px;
     padding-left: 1px
 }
+ #error-prix{
+      color: red;
+    font-size: 14px;
+    margin-top: -168px;
+    height: 0px;
+    position: absolute;
+
+ }
 
 .icon-phone {
     margin-top: 10px;
@@ -970,7 +978,7 @@ body {
 }
 
 .btn-secondary {
-    color: #09548a;
+    color: #09548a !important;
     border-color: #09548a;
 }
 

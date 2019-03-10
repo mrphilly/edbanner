@@ -933,6 +933,14 @@ vertical-align: middle;
         border-radius: 10px;
     }
 
+    #error-prix{
+        color: red;
+    font-size: 14px;
+    margin-top: -160px;
+    height: 0px;
+    position: absolute;
+
+    }
     .a {
         transform: rotateY(0deg) translateZ(250px);
         background: transparent;
