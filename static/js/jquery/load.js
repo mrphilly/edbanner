@@ -1,46 +1,19 @@
 $(document).ready(function () {
      let timerInterval
      Swal.fire({
-          title: "Ne fermez pas cette fenêtre sinon votre annonce risque de ne pas être publiée !",
-          html: 'Publication de la bannière dans <strong></strong> secondes .<br/><br/>',
-          timer: 60000,
+          title: "<strong style='color: red'>Ne fermez pas cette fenêtre sinon votre annonce risque de ne pas être publiée !</strong>",
+          html: 'Publication de la bannière dans <strong id="strong"></strong> secondes .<br/><br/>',
+          timer: 30000,
           onBeforeOpen: () => {
                const content = Swal.getContent()
                const $ = content.querySelector.bind(content)
 
-               const stop = $('#stop')
-               const resume = $('#resume')
-               const toggle = $('#toggle')
-               const increase = $('#increase')
+
 
                Swal.showLoading()
 
-               function toggleButtons() {
-                    stop.disabled = !Swal.isTimerRunning()
-                    resume.disabled = Swal.isTimerRunning()
-               }
-
-               stop.addEventListener('click', () => {
-                    Swal.stopTimer()
-                    toggleButtons()
-               })
-
-               resume.addEventListener('click', () => {
-                    Swal.resumeTimer()
-                    toggleButtons()
-               })
-
-               toggle.addEventListener('click', () => {
-                    Swal.toggleTimer()
-                    toggleButtons()
-               })
-
-               increase.addEventListener('click', () => {
-                    Swal.increaseTimer(5000)
-               })
-
                timerInterval = setInterval(() => {
-                    Swal.getContent().querySelector('strong')
+                    Swal.getContent().querySelector('#strong')
                          .textContent = (Swal.getTimerLeft() / 1000)
                          .toFixed(0)
                }, 100)
@@ -125,11 +98,10 @@ $(document).ready(function () {
           onClose: () => {
                clearInterval(timerInterval)
                Swal.fire({
-                    position: 'top-end',
                     type: 'success',
-                    title: 'Your work has been saved',
+                    title: 'Votre bannière a été publié avec succès !',
                     showConfirmButton: false,
-                    timer: 1500,
+                    timer: 8000,
                     onClose: () => {
                          window.location.href = "http://banner.comparez.co/"
                     }
