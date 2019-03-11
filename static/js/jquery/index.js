@@ -12,6 +12,7 @@ $(document).ready(function () {
     $(".page").hide()
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('pay');
+    var timerInterval;
     if (myParam != undefined) {
         Swal.fire({
             title: 'Initialisation du traitement',
@@ -55,7 +56,6 @@ $(document).ready(function () {
                     Swal.increaseTimer(5000)
                 })
 
-                let timerInterval
                 timerInterval = setInterval(() => {
                     Swal.getContent().querySelector('strong')
                         .textContent = (Swal.getTimerLeft() / 1000)
