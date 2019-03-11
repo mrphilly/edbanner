@@ -363,6 +363,7 @@ function addLogo() {
         div.setAttribute("class", "card-img-top logo-image drag superposition1")
         div.setAttribute("onmousedown", "showBorder()")
         div.setAttribute("onmouseup", "removeBorder()")
+        div.setAttribute("ondblclick", "removeBorder()")
         div.style.width = '50px';
         div.style.height = '50px';
         canvas_AR.width = 50;
