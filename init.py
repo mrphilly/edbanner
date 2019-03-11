@@ -107,6 +107,9 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
 
+@app.route('/load')
+def load():
+    render_template("edbanner/load.html")
 
 @app.route('/pay',  methods=['POST'])
 def pay():
@@ -117,7 +120,7 @@ def pay():
 
         url = 'https://payexpresse.com/api/payment/request-payment'
         cancel_url = "http://banner.comparez.co"
-        success_url = "http://banner.comparez.co/?pay=ok"
+        success_url = load()
         #cancel_url = "http://0.0.0.0:5009"
         #success_url = "http://0.0.0.0:5009/?pay=ok"
 
