@@ -165,7 +165,7 @@ body {
 
 .form-infos {
     margin-top: 0px;
-    margin-left: 43px;
+    margin-left: 2px;
 }
 
 .btn-milieu {
@@ -227,7 +227,7 @@ body {
 }
 
 .btn-item1 {
-    margin-left: 100px;
+    margin-left: 0px;
     margin-top: 35px !important;
     background-color: white;
     border-radius: 20px;
@@ -363,10 +363,14 @@ body {
     display: none;
 }
 
+#swal2-title {
+    font-size: 14px !important;
+}
+
 #logo {
     max-width: 100px;
     position: absolute;
-    left: -77%;
+    left: -85%;
     margin-left: 470px !important;
     display: block;
     height: auto;

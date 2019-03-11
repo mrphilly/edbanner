@@ -243,6 +243,10 @@ body {
 
 }
 
+#swal2-title {
+    font-size: 14px !important;
+}
+
 .btn--item1 {
     margin-left: 20px;
     margin-top: -110px !important;
