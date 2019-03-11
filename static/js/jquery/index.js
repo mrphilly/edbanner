@@ -8,142 +8,137 @@ $(document).ready(function () {
                 $('.sauvegarder').trigger("click")
             }
         });
-
+    $(".lds-hourglass").hide()
+    $(".page").hide()
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('pay');
     if (myParam != undefined) {
+        Swal.fire({
+            title: 'Initialisation du traitement',
+            html: 'Patientez quelques<strong> secondes svp.</strong><br/><br/>' +
+                '<button id="stop" class="btn btn-danger">' +
+                'Arrêter!!' +
+                '</button><br/>',
+            timer: 8000,
+            onBeforeOpen: () => {
+                const content = Swal.getContent()
+                const $ = content.querySelector.bind(content)
 
-        var data = {
-            'response': 'ok'
-        }
+                const stop = $('#stop')
+                const resume = $('#resume')
+                const toggle = $('#toggle')
+                const increase = $('#increase')
 
-        $(".lds-hourglass").hide()
-        $(".page").hide()
+                Swal.showLoading()
 
-
-        $.ajax({
-            type: "POST",
-            url: "/ads",
-            datatype: "json",
-            contentType: 'application/json',
-            success: function (response) {
-                $("#loading").modal('toggle')
-                if (response == "ok") {
-                    let timerInterval
-                    Swal.fire({
-                        title: 'Auto close alert!',
-                        html: 'Patientez quelques<strong>secondes.</strong><br/><br/>' +
-                            '<button id="stop" class="btn btn-danger">' +
-                            'Arrêter!!' +
-                            '</button><br/>',
-                        timer: 10000,
-                        onBeforeOpen: () => {
-                            const content = Swal.getContent()
-                            const $ = content.querySelector.bind(content)
-
-                            const stop = $('#stop')
-                            const resume = $('#resume')
-                            const toggle = $('#toggle')
-                            const increase = $('#increase')
-
-                            Swal.showLoading()
-
-                            function toggleButtons() {
-                                stop.disabled = !Swal.isTimerRunning()
-                                resume.disabled = Swal.isTimerRunning()
-                            }
-
-                            stop.addEventListener('click', () => {
-                                Swal.stopTimer()
-                                toggleButtons()
-                            })
-
-                            resume.addEventListener('click', () => {
-                                Swal.resumeTimer()
-                                toggleButtons()
-                            })
-
-                            toggle.addEventListener('click', () => {
-                                Swal.toggleTimer()
-                                toggleButtons()
-                            })
-
-                            increase.addEventListener('click', () => {
-                                Swal.increaseTimer(5000)
-                            })
-
-                            timerInterval = setInterval(() => {
-                                Swal.getContent().querySelector('strong')
-                                    .textContent = (Swal.getTimerLeft() / 1000)
-                                    .toFixed(0)
-                            }, 100)
-                        },
-                        onClose: () => {
-                            clearInterval(timerInterval)
-                        }
-                    })
-                    var notify = $.notify({
-                        message: '<strong>Ne fermez pas cette page</strong>Initialisation du traitement...',
-                        type: 'info',
-                        icon: 'fa fa-spinner',
-                    }, {
-                        allow_dismiss: false,
-                        showProgressbar: true,
-                        delay: 60000,
-                        timer: 1000,
-                        placement: {
-                            from: "bottom",
-                            align: "center"
-                        },
-                        offset: {
-                            x: 150,
-                            y: 300
-                        },
-                        onClose: function () {
-
-                            $('#ignismyModal').modal("toggle")
-                        },
-                    });
-                    setTimeout(function () {
-                        notify.update({
-                            'message': '<strong>Connexion à google...</strong>.',
-
-                        });
-                    }, 10000);
-                    setTimeout(function () {
-
-                        notify.update({
-                            'message': '<strong>Plus que quelques secondes...</strong>.',
-
-
-                        });
-
-
-                    }, 15000);
-                    setTimeout(function () {
-                        notify.update({
-                            message: "<strong>Publication de l'annonce</strong> en cours.",
-                            icon: 'fa fa-paper-plane',
-                        }, {
-                            'type': 'success',
-                        });
-                        console.log("1")
-
-                    }, 20000);
-
-
-                } else {
-                    window.location = "banner.comparez.co"
+                function toggleButtons() {
+                    stop.disabled = !Swal.isTimerRunning()
+                    resume.disabled = Swal.isTimerRunning()
                 }
 
+                stop.addEventListener('click', () => {
+                    Swal.stopTimer()
+                    toggleButtons()
+                })
+
+                resume.addEventListener('click', () => {
+                    Swal.resumeTimer()
+                    toggleButtons()
+                })
+
+                toggle.addEventListener('click', () => {
+                    Swal.toggleTimer()
+                    toggleButtons()
+                })
+
+                increase.addEventListener('click', () => {
+                    Swal.increaseTimer(5000)
+                })
+
+                let timerInterval
+                timerInterval = setInterval(() => {
+                    Swal.getContent().querySelector('strong')
+                        .textContent = (Swal.getTimerLeft() / 1000)
+                        .toFixed(0)
+                }, 100)
             },
+            onClose: () => {
+                clearInterval(timerInterval)
+                var data = {
+                    'response': 'ok'
+                }
 
-            data: JSON.stringify(data),
-        });
 
 
 
+                $.ajax({
+                    type: "POST",
+                    url: "/ads",
+                    datatype: "json",
+                    contentType: 'application/json',
+                    success: function (response) {
 
+                        if (response == "ok") {
+                            var notify = $.notify({
+                                message: '<strong>Ne fermez pas cette page</strong> traitement en cours...',
+                                type: 'info',
+                                icon: 'fa fa-spinner',
+                            }, {
+                                allow_dismiss: false,
+                                showProgressbar: true,
+                                delay: 20000,
+                                timer: 1000,
+                                placement: {
+                                    from: "bottom",
+                                    align: "center"
+                                },
+                                offset: {
+                                    x: 150,
+                                    y: 300
+                                },
+                                onClose: function () {
+
+                                    $('#ignismyModal').modal("toggle")
+                                },
+                            });
+                            setTimeout(function () {
+                                notify.update({
+                                    'message': '<strong>Connexion à google...</strong>.',
+
+                                });
+                            }, 10000);
+                            setTimeout(function () {
+
+                                notify.update({
+                                    'message': '<strong>Plus que quelques secondes...</strong>.',
+
+
+                                });
+
+
+                            }, 15000);
+                            setTimeout(function () {
+                                notify.update({
+                                    message: "<strong>Publication de l'annonce</strong> en cours.",
+                                    icon: 'fa fa-paper-plane',
+                                }, {
+                                    'type': 'success',
+                                });
+                                console.log("1")
+
+                            }, 20000);
+
+
+                        } else {
+                            window.location.href = "http://banner.comparez.co/"
+                        }
+
+                    },
+
+                    data: JSON.stringify(data),
+                });
+            }
+        })
 
 
 
@@ -200,7 +195,15 @@ $(document).ready(function () {
 })
 $("#ignismyModal").on("hidden.bs.modal", function () {
     /*  window.location = "http://0.0.0.0:5009" */
-    window.location = "http://banner.comparez.co/"
+    window.location.href = "http://banner.comparez.co/"
+});
+
+$("#visualiser1").on("hidden.bs.modal", function () {
+    $(".block-publish").show()
+});
+
+$("#visualiser2").on("hidden.bs.modal", function () {
+    $(".block-publish").show()
 });
 
 
@@ -358,7 +361,7 @@ function dragMoveListener(event) {
 
 
 var takeScreenShotComparez = function () {
-
+    $(".block-publish").hide();
     html2canvas(document.querySelector(".atvImg-container"), {
         onrendered: function (canvas) {
             var tempcanvas = document.createElement('canvas');
@@ -372,6 +375,7 @@ var takeScreenShotComparez = function () {
     });
 }
 var takeScreenShotAdwords = function () {
+    $(".block-publish").hide();
     var description = $("#description");
     var prix = $("#prix");
     var tel = $("#tel")
