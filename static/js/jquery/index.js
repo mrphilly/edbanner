@@ -1,13 +1,14 @@
 $(document).ready(function () {
 
 
-document.getElementById("tel")
-    .addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-        $('.sauvegarder').trigger("click")
-    }
-});
+    document.getElementById("tel")
+        .addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                $('.sauvegarder').trigger("click")
+            }
+        });
+
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('pay');
     if (myParam != undefined) {
@@ -27,59 +28,111 @@ document.getElementById("tel")
             contentType: 'application/json',
             success: function (response) {
                 $("#loading").modal('toggle')
-                if(response=="ok"){
-                    $("#loading").modal('toggle')
-                     var notify = $.notify({
-            message: '<strong>Ne fermez pas cette page</strong>Initialisation du traitement...',
-            type: 'info',
-            icon: 'fa fa-spinner',
-            },{
-            allow_dismiss: false,
-            showProgressbar: true,
-            delay: 60000,
-            timer: 1000,
-            placement: {
-                from: "bottom",
-                align: "center"
-            },
-            offset: {
-                x: 150,
-                y: 300
-            },
-            onClose: function () {
+                if (response == "ok") {
+                    let timerInterval
+                    Swal.fire({
+                        title: 'Auto close alert!',
+                        html: 'Patientez quelques<strong>secondes.</strong><br/><br/>' +
+                            '<button id="stop" class="btn btn-danger">' +
+                            'Arrêter!!' +
+                            '</button><br/>',
+                        timer: 10000,
+                        onBeforeOpen: () => {
+                            const content = Swal.getContent()
+                            const $ = content.querySelector.bind(content)
 
-                $('#ignismyModal').modal("toggle")
-            },
-        });
-        setTimeout(function () {
-            notify.update({
-                'message': '<strong>Connexion à google...</strong>.',
+                            const stop = $('#stop')
+                            const resume = $('#resume')
+                            const toggle = $('#toggle')
+                            const increase = $('#increase')
 
-            });
-        }, 10000);
-        setTimeout(function () {
+                            Swal.showLoading()
 
-            notify.update({
-                'message': '<strong>Plus que quelques secondes...</strong>.',
+                            function toggleButtons() {
+                                stop.disabled = !Swal.isTimerRunning()
+                                resume.disabled = Swal.isTimerRunning()
+                            }
+
+                            stop.addEventListener('click', () => {
+                                Swal.stopTimer()
+                                toggleButtons()
+                            })
+
+                            resume.addEventListener('click', () => {
+                                Swal.resumeTimer()
+                                toggleButtons()
+                            })
+
+                            toggle.addEventListener('click', () => {
+                                Swal.toggleTimer()
+                                toggleButtons()
+                            })
+
+                            increase.addEventListener('click', () => {
+                                Swal.increaseTimer(5000)
+                            })
+
+                            timerInterval = setInterval(() => {
+                                Swal.getContent().querySelector('strong')
+                                    .textContent = (Swal.getTimerLeft() / 1000)
+                                    .toFixed(0)
+                            }, 100)
+                        },
+                        onClose: () => {
+                            clearInterval(timerInterval)
+                        }
+                    })
+                    var notify = $.notify({
+                        message: '<strong>Ne fermez pas cette page</strong>Initialisation du traitement...',
+                        type: 'info',
+                        icon: 'fa fa-spinner',
+                    }, {
+                        allow_dismiss: false,
+                        showProgressbar: true,
+                        delay: 60000,
+                        timer: 1000,
+                        placement: {
+                            from: "bottom",
+                            align: "center"
+                        },
+                        offset: {
+                            x: 150,
+                            y: 300
+                        },
+                        onClose: function () {
+
+                            $('#ignismyModal').modal("toggle")
+                        },
+                    });
+                    setTimeout(function () {
+                        notify.update({
+                            'message': '<strong>Connexion à google...</strong>.',
+
+                        });
+                    }, 10000);
+                    setTimeout(function () {
+
+                        notify.update({
+                            'message': '<strong>Plus que quelques secondes...</strong>.',
 
 
-            });
+                        });
 
 
-        }, 15000);
-        setTimeout(function () {
-            notify.update({
-                message: "<strong>Publication de l'annonce</strong> en cours.",
-                icon: 'fa fa-paper-plane',
-            },{
-                'type': 'success',
-            });
-            console.log("1")
+                    }, 15000);
+                    setTimeout(function () {
+                        notify.update({
+                            message: "<strong>Publication de l'annonce</strong> en cours.",
+                            icon: 'fa fa-paper-plane',
+                        }, {
+                            'type': 'success',
+                        });
+                        console.log("1")
 
-        }, 20000);
+                    }, 20000);
 
 
-                }else{
+                } else {
                     window.location = "banner.comparez.co"
                 }
 
@@ -139,11 +192,15 @@ document.getElementById("tel")
 
     }
 
+    var pressTimer;
+
+
+
 
 })
 $("#ignismyModal").on("hidden.bs.modal", function () {
-   /*  window.location = "http://0.0.0.0:5009" */
-    window.location = "banner.comparez.co"
+    /*  window.location = "http://0.0.0.0:5009" */
+    window.location = "http://banner.comparez.co/"
 });
 
 
@@ -261,6 +318,7 @@ interact('.drag')
 
 interact('.drag1')
     .draggable({
+
         inertia: true,
         restrict: {
             restriction: "parent",
@@ -275,10 +333,12 @@ interact('.drag1')
         autoScroll: true,
         // dragMoveListener from the dragging demo above
         onmove: dragMoveListener,
+
     });
 
 function dragMoveListener(event) {
-
+    $(".swal2-container").hide()
+    $('.drag').addClass("border border-secondary")
     var target = event.target,
         // keep the dragged position in the data-x/data-y attributes
         x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
@@ -292,6 +352,7 @@ function dragMoveListener(event) {
     // update the posiion attributes
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
+    $('.drag').removeClass('border border-secondary')
 }
 
 
@@ -483,19 +544,18 @@ function addImage() {
         $('.carousel').carousel('next')
         $('.carousel').carousel('pause')
         $.notify({
-            message: "Vous pouvez appuyez sur les flèches pour passer à l'étape suivante",
+            message: "Vous pouvez appuyez sur les flèches pour passer à l'étape suivante <strong>pour supprimer le logo faite un appuis long dessus</strong>, vous pouvez également le deplacer en le faisant glisser sur l'image",
             icon: 'fa fa-tags',
         }, {
-            delay: 10000,
+            delay: 8000,
             timer: 1000,
             allow_dismiss: true,
             showProgressbar: false,
+        }, {
             animate: {
                 enter: 'animated lightSpeedIn',
                 exit: 'animated lightSpeedOut'
             },
-        }, {
-
         });
 
     }
@@ -585,7 +645,7 @@ function setTel() {
         num.setAttribute("id", "num")
         div.innerHTML = "<i class='material-icons ic' style='position: absolute' id='ic-num'>&#xe0cd;</i>"
         div.appendChild(num)
- if (second_parent == null) {
+        if (second_parent == null) {
             appendEle(parent, div)
             $('.drag1').css({
                 "margin-left": "50px !important"
@@ -593,7 +653,7 @@ function setTel() {
 
         } else {
             appendEle(second_parent, div)
-              $('.drag1').css({
+            $('.drag1').css({
                 "margin-left": "50px !important"
             })
         }
@@ -648,9 +708,48 @@ $("#btnSuccess").on("click", function () {
 $("#btnError").on("click", function () {
     $("#someElement").notify("some error occured", errorOptions);
 });
+var pressTimer;
 
 function showBorder() {
-    $('.drag').addClass("border border-secondary")
+
+    pressTimer = window.setTimeout(function () {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Voulez-vous supprimé le logo ?',
+            text: "Vous ne pourrez plus revenir en arrière après cette opération !",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Oui, supprimer!',
+            cancelButtonText: 'Non, revenir!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                $(".logo-image").remove()
+                swalWithBootstrapButtons.fire(
+                    'Supprimé!',
+                    'Votre logo a été supprimé.',
+                    'success'
+                )
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Annulé',
+                    'Votre logo n\'a pas été supprimé:)',
+                    'error'
+                )
+            }
+        })
+
+    }, 1000);
+    return false;
+
 }
 
 function showBorder1() {
@@ -658,7 +757,10 @@ function showBorder1() {
 }
 
 function removeBorder() {
-    $('.drag').removeClass('border border-secondary')
+
+    clearTimeout(pressTimer);
+    // Clear timeout
+    return false;
 }
 
 function removeBorder1() {
@@ -696,10 +798,10 @@ function verifyInput() {
     if (description.val() == "" || prix.val() == "" || tel.val() == "") {
         $("#error").show()
 
-    }else if(isNaN(prix.val())){
+    } else if (isNaN(prix.val())) {
         $("#error-prix").show()
 
-    }else if (tel.val().startsWith("77") == true || tel.val().startsWith("78") == true || tel.val().startsWith("70") == true || tel.val().startsWith("76") == true && isNaN(tel.val()) == true && tel.val().length == 9) {
+    } else if (tel.val().startsWith("77") == true || tel.val().startsWith("78") == true || tel.val().startsWith("70") == true || tel.val().startsWith("76") == true && isNaN(tel.val()) == true && tel.val().length == 9) {
         html2canvas(document.querySelector(".figure"), {
             onrendered: function (canvas) {
                 var tempcanvas = document.createElement('canvas');
@@ -859,8 +961,10 @@ function publishOnAdwords() {
 
 
 function buy(btn) {
+
     setTimeout(function () {
         $("#visualiser2").modal('toggle')
+
         var selector = pQuery(btn);
         (new PayExpresse({
             item_id: 1,
