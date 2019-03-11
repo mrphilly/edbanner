@@ -109,7 +109,7 @@ def uploaded_file(filename):
 
 @app.route('/load')
 def load():
-    render_template("edbanner/load.html")
+    return render_template('load.html')
 
 @app.route('/pay',  methods=['POST'])
 def pay():
