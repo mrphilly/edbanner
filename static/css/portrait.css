@@ -227,7 +227,7 @@ body {
 }
 
 .btn-item1 {
-    margin-left: 0px;
+    margin-left: 100px;
     margin-top: 35px !important;
     background-color: white;
     border-radius: 20px;
@@ -235,6 +235,7 @@ body {
     font-size: 12px;
     height: 33px;
     border-color: #09548a;
+    width: 150px;
 }
 
 .btn-logo {
@@ -291,7 +292,8 @@ body {
 
 .sp-replacer {
     position: absolute;
-    margin-left: -110px !important;
+    margin-left: -220px !important;
+    width: 27%;
 }
 
 #row1 {
@@ -369,13 +371,13 @@ body {
 
 #text-img {
     color: #09548a;
-    font-size: 12px;
+    font-size: 18px;
     word-wrap: break-word;
     width: 200px;
     height: 20px;
     position: absolute;
     margin-top: -30px;
-    margin-left: -83px;
+    margin-left: -190px;
 }
 
 .drag1 {
@@ -960,16 +962,16 @@ body {
 }
 
 .field {
-    width: 200px;
-    margin-left: -5px;
+    width: 350px;
+    margin-left: -115px;
     height: 25px;
     font-size: 12px;
-    box-shadow: 0 8px 10px black;
+    box-shadow: 0 6px 10px black;
     /* perspective: 1000px; */
 }
 
 .c {
-    transform: rotateY(120deg) translateZ(250px);
+    transform: rotateY(180deg) translateZ(0px) translateX(20px);
     background: transparent;
     margin-top: 40px;
 
