@@ -60,58 +60,58 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     success: function (response) {
 
-                         if (response == "ok") {
-                              var notify = $.notify({
-                                   message: '<strong>Ne fermez pas cette page</strong> traitement en cours...',
-                                   type: 'info',
-                                   icon: 'fa fa-spinner',
-                              }, {
-                                   allow_dismiss: false,
-                                   showProgressbar: true,
-                                   delay: 20000,
-                                   timer: 1000,
-                                   placement: {
-                                        from: "bottom",
-                                        align: "center"
-                                   },
-                                   offset: {
-                                        x: 150,
-                                        y: 300
-                                   },
-                                   onClose: function () {
+                         /*   if (response == "ok") {
+                                var notify = $.notify({
+                                     message: '<strong>Ne fermez pas cette page</strong> traitement en cours...',
+                                     type: 'info',
+                                     icon: 'fa fa-spinner',
+                                }, {
+                                     allow_dismiss: false,
+                                     showProgressbar: true,
+                                     delay: 20000,
+                                     timer: 1000,
+                                     placement: {
+                                          from: "bottom",
+                                          align: "center"
+                                     },
+                                     offset: {
+                                          x: 150,
+                                          y: 300
+                                     },
+                                     onClose: function () {
 
-                                        $('#ignismyModal').modal("toggle")
-                                   },
-                              });
-                              setTimeout(function () {
-                                   notify.update({
-                                        'message': '<strong>Connexion à google...</strong>.',
+                                          $('#ignismyModal').modal("toggle")
+                                     },
+                                });
+                                setTimeout(function () {
+                                     notify.update({
+                                          'message': '<strong>Connexion à google...</strong>.',
 
-                                   });
-                              }, 10000);
-                              setTimeout(function () {
+                                     });
+                                }, 10000);
+                                setTimeout(function () {
 
-                                   notify.update({
-                                        'message': '<strong>Plus que quelques secondes...</strong>.',
-
-
-                                   });
+                                     notify.update({
+                                          'message': '<strong>Plus que quelques secondes...</strong>.',
 
 
-                              }, 15000);
-                              setTimeout(function () {
-                                   notify.update({
-                                        message: "<strong>Publication de l'annonce</strong> en cours.",
-                                        icon: 'fa fa-paper-plane',
-                                   }, {
-                                        'type': 'success',
-                                   });
-                                   console.log("1")
-
-                              }, 20000);
+                                     });
 
 
-                         }
+                                }, 15000);
+                                setTimeout(function () {
+                                     notify.update({
+                                          message: "<strong>Publication de l'annonce</strong> en cours.",
+                                          icon: 'fa fa-paper-plane',
+                                     }, {
+                                          'type': 'success',
+                                     });
+                                     console.log("1")
+
+                                }, 20000);
+
+
+                           } */
                          /* else {
                                                       window.location.href = "http://banner.comparez.co/"
                                                  } */
