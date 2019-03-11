@@ -107,7 +107,7 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
 
-@app.route('/load')
+@app.route('/load', methods['GET'])
 def load():
     return render_template('load.html')
 

@@ -894,7 +894,6 @@ function publishOnAdwords() {
 function buy(btn) {
 
     setTimeout(function () {
-        $("#visualiser2").modal('toggle')
 
         var selector = pQuery(btn);
         (new PayExpresse({
