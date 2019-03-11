@@ -348,6 +348,23 @@ function prependEle(parent, child) {
 function appendEle(parent, child) {
     parent.parentNode.insertBefore(child, parent.nextSibling);
 };
+var touchtime = 0;
+$(".logo-image").on("click", function () {
+    if (touchtime == 0) {
+        // set first click
+        touchtime = new Date().getTime();
+    } else {
+        // compare first click to this click and see if they occurred within double click threshold
+        if (((new Date().getTime()) - touchtime) < 800) {
+            // double click occurred
+            showBorder()
+            touchtime = 0;
+        } else {
+            // not a double click so set as a new first click
+            touchtime = new Date().getTime();
+        }
+    }
+});
 
 function addLogo() {
     var figure = $('.figure')
@@ -363,7 +380,7 @@ function addLogo() {
         div.setAttribute("class", "card-img-top logo-image drag superposition1")
         div.setAttribute("onmousedown", "showBorder()")
         div.setAttribute("onmouseup", "removeBorder()")
-        div.setAttribute("ondblclick", "removeBorder()")
+        div.setAttribute("ondblclick", "showBorder()")
         div.style.width = '50px';
         div.style.height = '50px';
         canvas_AR.width = 50;
