@@ -302,7 +302,7 @@ body {
 }
 
 .sp-replacer {
-       position: absolute;
+    position: absolute;
     margin-left: -229px !important;
     width: 40%;
     height: auto;
@@ -379,6 +379,12 @@ body {
     width: 24%;
 }
 
+.alert-info {
+    color: #0c5460;
+    background-color: rgba(255, 255, 255, .4);
+    margin-top: 300px !important;
+    width: 300px;
+}
 
 .drag {
     margin-left: 10px;
@@ -386,7 +392,7 @@ body {
 }
 
 #text-img {
-        color: #09548a;
+    color: #09548a;
     font-size: 22px;
     word-wrap: break-word;
     width: 300px;
@@ -978,7 +984,7 @@ body {
 }
 
 .field {
-      width: 500px;
+    width: 500px;
     margin-left: -115px;
     height: 25px;
     font-size: 18px;

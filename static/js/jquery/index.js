@@ -494,8 +494,8 @@ function addImage() {
 
         $('.carousel').carousel('next')
         $('.carousel').carousel('pause')
-        /* $.notify({
-            message: "Vous pouvez appuyez sur les flèches pour passer à l'étape suivante <strong>pour supprimer le logo faite un appuis long dessus</strong>, vous pouvez également le deplacer en le faisant glisser sur l'image",
+        $.notify({
+            message: "👉 Cliquez sur les flèches pour passer à l'étape suivante ou pour reculer, vous pouvez déplacer votre logo tout au long de l'image et vous pouvez le supprimer en faisant un appuis long !",
             icon: 'fa fa-tags',
         }, {
             delay: 8000,
@@ -507,9 +507,9 @@ function addImage() {
                 enter: 'animated lightSpeedIn',
                 exit: 'animated lightSpeedOut'
             },
-        }); */
-        Swal.fire("👉 Cliquez sur les flèches pour passer à l'étape suivante ou pour reculer, vous pouvez déplacer votre logo tout au long de l'image et vous pouvez le supprimer en faisant un appuis long !")
-
+        });
+        /* Swal.fire("👉 Cliquez sur les flèches pour passer à l'étape suivante ou pour reculer, vous pouvez déplacer votre logo tout au long de l'image et vous pouvez le supprimer en faisant un appuis long !")
+         */
     }
 
     if (file) {
@@ -622,22 +622,22 @@ function setTel() {
                  timer: 100000
 
              }); */
-            /*   $.notify({
-                  message: "<strong style='color: red; font-size: 14px'>Important </strong>Votre numéro sera affiché sur l'image vous pouvez cliquez dessus pour le déplacer",
-                  icon: 'fa fa-info-circle',
-              }, {
-                  delay: 600000,
-                  timer: 10000,
-              }, {
-                  allow_dismiss: true,
-                  showProgressbar: false,
-                  animate: {
-                      enter: 'animated lightSpeedIn',
-                      exit: 'animated lightSpeedOut'
-                  },
+            $.notify({
+                message: "<strong style='color: red; font-size: 14px'>Important </strong>Votre numéro sera affiché sur l'image vous pouvez cliquez dessus pour le déplacer",
+                icon: 'fa fa-info-circle',
+            }, {
+                delay: 600000,
+                timer: 10000,
+            }, {
+                allow_dismiss: true,
+                showProgressbar: false,
+                animate: {
+                    enter: 'animated lightSpeedIn',
+                    exit: 'animated lightSpeedOut'
+                },
 
-              }); */
-            Swal.fire("❗ <strong style='color: red; font-size: 14px'>Important </strong>Votre numéro sera affiché sur l'image vous pouvez cliquez dessus pour le déplacer")
+            });
+            /*  Swal.fire("❗ <strong style='color: red; font-size: 14px'>Important </strong>Votre numéro sera affiché sur l'image vous pouvez cliquez dessus pour le déplacer")*/
         }, 2500)
 
 
