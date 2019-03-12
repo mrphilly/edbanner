@@ -302,11 +302,12 @@ body {
 }
 
 .sp-replacer {
-    width: 300px;
-    margin-left: -45px;
+    margin-left: -165px !important;
     height: 25px;
     font-size: 16px;
     box-shadow: 0 6px 10px black;
+    margin-top: 10px !important;
+    position: absolute;
 }
 
 #row1 {
@@ -394,13 +395,13 @@ body {
 
 #text-img {
     color: #09548a;
-    font-size: 22px;
+    font-size: 18px;
     word-wrap: break-word;
-    width: 300px;
+    width: 270px;
     height: auto;
     position: absolute;
-    margin-top: -20px;
-    margin-left: -160px;
+    margin-top: -10px;
+    margin-left: -55px;
 }
 
 .drag1 {

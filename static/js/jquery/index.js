@@ -623,7 +623,7 @@ function setTel() {
 
              }); */
             $.notify({
-                message: "<strong style='color: red; font-size: 14px'>Important </strong>Votre numéro sera affiché sur l'image vous pouvez cliquez dessus pour le déplacer",
+                message: "<strong style='color: red; font-size: 14px'>Important </strong>Votre numéro sera affiché sur l'image vous pouvez cliquez dessus pour le déplacer, la palette de couleur en dessous vous servira à changer sa couleur ! ",
                 icon: 'fa fa-info-circle',
             }, {
                 delay: 600000,
