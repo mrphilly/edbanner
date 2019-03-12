@@ -72,6 +72,13 @@ $(document).ready(function () {
 
 
     } else {
+        onReady(function () {
+
+            setVisible('.page', true);
+            setVisible('.lds-hourglass', false);
+
+        });
+
 
         $('.b, .c, .d').hide();
         $('.next, .prev').hide();
@@ -83,12 +90,6 @@ $(document).ready(function () {
             $('.carousel').carousel('prev')
 
         })
-        onReady(function () {
-
-            setVisible('.page', true);
-            setVisible('.lds-hourglass', false);
-
-        });
 
         toggleCard();
         toggleCarousel();
@@ -482,6 +483,7 @@ function addImage() {
 
 
     reader.onloadend = function () {
+
         var image_AR = new Image();
         image_AR.src = reader.result;
         image_AR.onload = function () {
@@ -637,6 +639,8 @@ function setTel() {
                 },
 
             });
+            $(".animated").css("background-color", "rgba(255, 255, 0, .4)")
+            $(".animated").css("margin-top", "250px !important")
             /*  Swal.fire("❗ <strong style='color: red; font-size: 14px'>Important </strong>Votre numéro sera affiché sur l'image vous pouvez cliquez dessus pour le déplacer")*/
         }, 2500)
 
