@@ -637,8 +637,8 @@ function setTel() {
                   },
 
               }); */
-            Swal.fire("<strong style='color: red; font-size: 14px'>Important </strong>Votre numéro sera affiché sur l'image vous pouvez cliquez dessus pour le déplacer")
-        }, 3000)
+            Swal.fire("❗ <strong style='color: red; font-size: 14px'>Important </strong>Votre numéro sera affiché sur l'image vous pouvez cliquez dessus pour le déplacer")
+        }, 2500)
 
 
     } else {
