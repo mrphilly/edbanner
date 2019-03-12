@@ -302,11 +302,11 @@ body {
 }
 
 .sp-replacer {
-    width: 300px;
-    margin-left: -45px;
     height: 25px;
     font-size: 16px;
     box-shadow: 0 6px 10px black;
+    position: absolute;
+    margin-left: -170px !important;
 }
 
 #row1 {
