@@ -640,7 +640,7 @@ function setTel() {
 
             });
             $(".animated").css("background-color", "rgba(255, 255, 0, .4)")
-            $(".animated").css("margin-top", "250px !important")
+            //$(".animated").css("margin-top", "250px !important")
             /*  Swal.fire("❗ <strong style='color: red; font-size: 14px'>Important </strong>Votre numéro sera affiché sur l'image vous pouvez cliquez dessus pour le déplacer")*/
         }, 2500)
 
