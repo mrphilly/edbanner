@@ -102,7 +102,7 @@ $(document).ready(function () {
         $("#error-prix").hide();
         setTimeout(function () {
             $.notify({
-                message: 'Cliquez sur le bouton <strong>Insérer une image</strong>  pour commencer !',
+                message: 'Cliquez sur le bouton <strong>Insérer une image</strong>  pour commencer 😎, vous pouvez également utiliser votre appareil photo 📸',
                 icon: 'fa fa-hand-o-down',
             }, {
                 delay: 60000,
@@ -508,7 +508,7 @@ function addImage() {
                 exit: 'animated lightSpeedOut'
             },
         }); */
-        Swal.fire("Cliquez sur les flèches pour passer à l'étape suivante ou pour reculer, vous pouvez déplacer votre logo tout au long de l'image et vous pouvez le supprimer en faisant un appuis long !")
+        Swal.fire("👉 Cliquez sur les flèches pour passer à l'étape suivante ou pour reculer, vous pouvez déplacer votre logo tout au long de l'image et vous pouvez le supprimer en faisant un appuis long !")
 
     }
 
@@ -992,6 +992,7 @@ function buy(btn) {
  * Based on jquery documentation http://learn.jquery.com/events/event-extensions/
  */
 
+
 (function ($) {
 
     $.event.special.doubletap = {
@@ -1023,5 +1024,5 @@ function buy(btn) {
 })(jQuery);
 
 $(".logo-image").on('doubletap', function (event) {
-    alert('doubletap');
+    //alert('doubletap');
 });
