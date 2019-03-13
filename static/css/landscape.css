@@ -302,12 +302,11 @@ body {
 }
 
 .sp-replacer {
-    margin-left: -165px !important;
     height: 25px;
     font-size: 16px;
     box-shadow: 0 6px 10px black;
-    margin-top: 10px !important;
     position: absolute;
+    margin-left: -170px !important;
 }
 
 #row1 {
@@ -384,7 +383,7 @@ body {
 .alert-info {
     color: #0c5460;
     background-color: rgba(255, 255, 255, .4);
-    margin-top: 300px !important;
+    margin-top: 330px !important;
     width: 300px;
 }
 
@@ -395,13 +394,13 @@ body {
 
 #text-img {
     color: #09548a;
-    font-size: 18px;
+    font-size: 22px;
     word-wrap: break-word;
-    width: 270px;
+    width: 300px;
     height: auto;
     position: absolute;
-    margin-top: -10px;
-    margin-left: -55px;
+    margin-top: -20px;
+    margin-left: -160px;
 }
 
 .drag1 {
@@ -1175,10 +1174,11 @@ body {
 }
 
 #senego {
-    margin-top: 50px;
+    margin-top: 35px;
     margin-left: 240px;
     position: absolute;
     width: 25%;
+    border-radius: 20px;
 }
 
 

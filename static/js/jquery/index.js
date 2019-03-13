@@ -305,6 +305,7 @@ var takeScreenShotComparez = function () {
     });
 }
 var takeScreenShotAdwords = function () {
+
     $(".block-publish").hide();
     var description = $("#description");
     var prix = $("#prix");
@@ -329,6 +330,7 @@ var takeScreenShotAdwords = function () {
         }
 
     });
+
 }
 
 var takeScreenShotFacebook = function () {
@@ -576,6 +578,7 @@ function setPrix() {
 
 function setTel() {
     hideError()
+    $("#phone-error").hide()
     var str = $("#tel").val();
     var html = $("<i class='material-icons ic' id=''>&#xe0cd;</i><span class='num'></span>")
     var target = $(".label-tel")
@@ -758,7 +761,10 @@ function verifyInput() {
     } else if (isNaN(prix.val())) {
         $("#error-prix").show()
 
-    } else if (tel.val().startsWith("77") == true || tel.val().startsWith("78") == true || tel.val().startsWith("70") == true || tel.val().startsWith("76") == true && isNaN(tel.val()) == true && tel.val().length == 9) {
+    } else if (tel.val().length != 9) {
+        $("#phone-error").show()
+        $("#phone-error").css("margin-top", "90px !important")
+    } else if (tel.val().startsWith("77") == true || tel.val().startsWith("78") == true || tel.val().startsWith("70") == true || tel.val().startsWith("76") == true || isNaN(tel.val()) == true) {
         html2canvas(document.querySelector(".figure"), {
             onrendered: function (canvas) {
                 var tempcanvas = document.createElement('canvas');

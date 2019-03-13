@@ -327,10 +327,11 @@ body {
 }
 
 #senego {
-    margin-top: 180px;
+    margin-top: 170px;
     margin-left: 350px;
     position: absolute;
-    width: 25%;
+    width: 20%;
+    border-radius: 20px;
 }
 
 #down1 {
